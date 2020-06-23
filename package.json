@@ -1,6 +1,6 @@
 {
   "name": "@paljs/docs",
-  "description": "React Styled Components with bootstrap grid system.",
+  "description": "paljs docs",
   "version": "1.0.0",
   "author": "Ahmed Elywa <ahmed.elywa@icloud.com>",
   "dependencies": {
@@ -15,13 +15,9 @@
     "gatsby-plugin-mdx": "1.2.15",
     "gatsby-plugin-mdx-code-demo-oah": "1.0.0",
     "gatsby-plugin-react-helmet": "3.3.4",
-    "gatsby-plugin-sharp": "2.6.11",
     "gatsby-plugin-styled-components": "3.3.4",
     "gatsby-plugin-typescript": "2.4.6",
     "gatsby-remark-prismjs": "3.5.4",
-    "gatsby-source-filesystem": "2.3.11",
-    "gatsby-transformer-remark": "2.8.16",
-    "gatsby-transformer-sharp": "2.5.5",
     "prismjs": "1.20.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -63,6 +59,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AhmedElywa/oah-ui"
+    "url": "https://github.com/paljs/docs"
   }
 }

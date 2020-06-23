@@ -1,3 +1,3 @@
-## OAH UI Docs
+## Pal.js Docs
 
-[Docs Link](http://oah-ui.oahtach.io)
+[Docs Link](https://www.paljs.com)

@@ -14,6 +14,7 @@ module.exports = {
         component: require.resolve(`./src/Layouts/index.tsx`),
       },
     },
+    'gatsby-plugin-styled-components',
     'gatsby-plugin-typescript',
     'gatsby-plugin-root-import',
     {
@@ -69,7 +70,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-react-helmet',
-    `gatsby-transformer-remark`,
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
