@@ -1,0 +1,255 @@
+import SEO from 'src/components/SEO';
+import MdxCard from 'src/components/MdxCard';
+
+<SEO title="Generator Classes" />
+
+<MdxCard>
+
+## Generator Classes
+
+Here is what we use in our [CLI](/cli/generator) to generate fiels
+
+**CONTENT**
+- [Backend Generator](#backend-generator)
+    - [output](#output)
+- [UIGenerator](#uigenerator)
+    - [Admin Pages Options](#adminpagesoptions)
+    - [Client Queries And Mutations](#client-queries-and-mutations)
+- [Options](#options-type-definition)
+
+</MdxCard>
+
+
+<MdxCard>
+
+## Backend Generator
+
+Generate CRUD system for your Prisma GraphQL server
+
+`findOne` | `findMany` | `findCount` | `createOne` | `updateOne` | `'upsertOne` | `'deleteOne` | `'updateMany` | `'deleteMany`
+
+<br/>
+
+| ARGUMENTS | Type                                                         |
+|-----------|--------------------------------------------------------------|
+| generator | one of `nexus` , `nexus-schema` , `sdl` , `graphql-modules`  |
+| options   | You can add [Options](#options-type-definition) object to customize the generator |
+
+<br/>
+
+```ts
+import { Generator } from '@paljs/generator';
+
+new Generator('nexus', {}).run()
+```
+
+## output
+
+Generated code depending on the type of generator
+
+- [nexus](/generator/nexus#nexus-generator-output-code)
+- [nexus-schema](/generator/nexus#nexus-schema-generator-output-code)
+- [sdl](/generator/sdl)
+- [graphql-modules](/generator/graphql-modules)
+
+</MdxCard>
+
+<MdxCard>
+
+## UIGenerator
+
+- admin settings schema uses in our [Prismatable]()
+- admin pages for build pages with our Prismatable
+- graphql (queries, mutations) documents to use in your customize code
+
+```ts
+import { UIGenerator } from '@paljs/generator';
+
+// accept one arg for schema.prisma path
+const uiGenerator = new UIGenerator('prisma/schema.prisma');
+
+// accept one arg for output of generated settings schema
+uiGenerator.buildSettingsSchema('prisma/');
+
+// accept `AdminPagesOptions` object
+uiGenerator.generateAdminPages({});
+
+// accept `Options` Object
+uiGenerator.generateGraphql(options);
+```
+
+## AdminPagesOptions
+
+```ts
+interface AdminPagesOptions {
+  // add array of model to just generate pages for them by `pal g`
+  models?: string[];
+  // customize page content
+  pageContent?: string;
+  // output dir
+  outPut?: string;
+}
+```
+
+**pageContent** it's your generated page content as string. default:
+
+```
+import React from 'react';
+import PrismaTable from 'Components/PrismaTable';
+
+const #{id}: React.FC = () => {
+  return <PrismaTable model="#{id}" />;
+};
+
+export default #{id};
+```
+
+will replace `#{id}` to model name.
+
+## Client Queries And Mutations
+
+Ok now I have tables to manage my db what if I need to add more logic functions and need to build query body.
+
+like this
+
+```graphql
+query findManyUser(
+  $where: UserWhereInput
+  $orderBy: UserOrderByInput
+  $cursor: UserWhereUniqueInput
+  $skip: Int
+  $take: Int
+) {
+  findManyUser(where: $where, orderBy: $orderBy, cursor: $cursor, skip: $skip, take: $take) {
+    ...User
+  }
+}
+```
+
+> NOTE: I create query string in `.graphql` files because I use [`graphql-codegen`](https://graphql-code-generator.com/docs/plugins/typescript-react-apollo) CLI to auto generate `@apollo/client` react hook.
+
+customize output with adding [Options](#options-type-definition) to `uiGenerator.generateGraphql(options);`
+
+**Output User model result**
+
+```graphql
+fragment UserFields on User {
+  id
+  email
+  name
+  password
+  createdAt
+  groupId
+}
+
+fragment User on User {
+  ...UserFields
+  group {
+    ...GroupFields
+  }
+}
+
+query findOneUser($where: UserWhereUniqueInput!) {
+  findOneUser(where: $where) {
+    ...User
+  }
+}
+
+query findManyUser(
+  $where: UserWhereInput
+  $orderBy: UserOrderByInput
+  $cursor: UserWhereUniqueInput
+  $skip: Int
+  $take: Int
+) {
+  findManyUser(where: $where, orderBy: $orderBy, cursor: $cursor, skip: $skip, take: $take) {
+    ...User
+  }
+}
+
+query findManyUserCount(
+  $where: UserWhereInput
+  $orderBy: UserOrderByInput
+  $cursor: UserWhereUniqueInput
+  $skip: Int
+  $take: Int
+) {
+  findManyUserCount(where: $where, orderBy: $orderBy, cursor: $cursor, skip: $skip, take: $take)
+}
+
+mutation createOneUser($data: UserCreateInput!) {
+  createOneUser(data: $data) {
+    ...User
+  }
+}
+
+mutation updateOneUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
+  updateOneUser(where: $where, data: $data) {
+    ...User
+  }
+}
+
+mutation deleteOneUser($where: UserWhereUniqueInput!) {
+  deleteOneUser(where: $where) {
+    id
+  }
+}
+
+mutation deleteManyUser($where: UserWhereInput) {
+  deleteManyUser(where: $where) {
+    count
+  }
+}
+
+mutation updateManyUser($where: UserWhereInput, $data: UserUpdateManyMutationInput!) {
+  updateManyUser(where: $where, data: $data) {
+    count
+  }
+}
+```
+
+</MdxCard>
+
+<MdxCard>
+
+### options type definition
+
+```ts
+interface Options {
+  // add array of model to just generate them by `pal g`
+  models?: string[];
+  // models output path
+  output: string;
+  // add onDelete.cascade() function on deleteOne and deleteMany mutations default false
+  onDelete?: boolean;
+  // exclude fields from all models
+  excludeFields: string[];
+  // exclude queries or mutations for one or more models
+  excludeModels: { name: string; queries?: boolean; mutations?: boolean }[];
+  // disable all queries for all models
+  disableQueries?: boolean;
+  // disable all mutations for all models
+  disableMutations?: boolean;
+  // exclude fields from one or more models will merge it with general excludeFields
+  excludeFieldsByModel: { [modelName: string]: string[] };
+  // exclude queries and mutations for one or more model it's object with key : model name value array of QueriesAndMutations type
+  excludeQueriesAndMutationsByModel: {
+    [modelName: string]: QueriesAndMutations[];
+  };
+   // exclude queries and mutations for all models array of QueriesAndMutations type
+  excludeQueriesAndMutations: QueriesAndMutations[];
+}
+
+type QueriesAndMutations =
+  | 'findOne'
+  | 'findMany'
+  | 'findCount'
+  | 'createOne'
+  | 'updateOne'
+  | 'upsertOne'
+  | 'deleteOne'
+  | 'updateMany'
+  | 'deleteMany';
+```
+
+</MdxCard>
