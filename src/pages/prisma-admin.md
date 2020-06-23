@@ -44,7 +44,7 @@ To be able to custom your tables you need to generate `adminSettings.json` file 
 
 1- with our cli `pal g`
 
-add in your `pal.ts` config file this settings
+add in your `pal.js` config file this settings
 
 ```
 frontend: {
@@ -367,7 +367,7 @@ Now we need to generate a page for every model with our prisma table here `src/c
 
 You can add them manulay or use our cli `pal generate` 
 
-Add to your `pal.ts` config file 
+Add to your `pal.js` config file 
 
 ```
 frontend: {

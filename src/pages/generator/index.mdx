@@ -10,15 +10,15 @@ import MdxCard from 'src/components/MdxCard';
 Here is what we use in our [CLI](/cli/generator) to generate fiels
 
 **CONTENT**
+
 - [Backend Generator](#backend-generator)
-    - [output](#output)
+  - [output](#output)
 - [UIGenerator](#uigenerator)
-    - [Admin Pages Options](#adminpagesoptions)
-    - [Client Queries And Mutations](#client-queries-and-mutations)
+  - [Admin Pages Options](#adminpagesoptions)
+  - [Client Queries And Mutations](#client-queries-and-mutations)
 - [Options](#options-type-definition)
 
 </MdxCard>
-
 
 <MdxCard>
 
@@ -28,19 +28,19 @@ Generate CRUD system for your Prisma GraphQL server
 
 `findOne` | `findMany` | `findCount` | `createOne` | `updateOne` | `'upsertOne` | `'deleteOne` | `'updateMany` | `'deleteMany`
 
-<br/>
+<br />
 
-| ARGUMENTS | Type                                                         |
-|-----------|--------------------------------------------------------------|
-| generator | one of `nexus` , `nexus-schema` , `sdl` , `graphql-modules`  |
+| ARGUMENTS | Type                                                                              |
+| --------- | --------------------------------------------------------------------------------- |
+| generator | one of `nexus` , `nexus-schema` , `sdl` , `graphql-modules`                       |
 | options   | You can add [Options](#options-type-definition) object to customize the generator |
 
-<br/>
+<br />
 
 ```ts
 import { Generator } from '@paljs/generator';
 
-new Generator('nexus', {}).run()
+new Generator('nexus', {}).run();
 ```
 
 ## output
@@ -58,7 +58,7 @@ Generated code depending on the type of generator
 
 ## UIGenerator
 
-- admin settings schema uses in our [Prismatable]()
+- admin settings schema uses in our [PrismaTable](/prisma-admin/#prisma-table)
 - admin pages for build pages with our Prismatable
 - graphql (queries, mutations) documents to use in your customize code
 
@@ -236,7 +236,7 @@ interface Options {
   excludeQueriesAndMutationsByModel: {
     [modelName: string]: QueriesAndMutations[];
   };
-   // exclude queries and mutations for all models array of QueriesAndMutations type
+  // exclude queries and mutations for all models array of QueriesAndMutations type
   excludeQueriesAndMutations: QueriesAndMutations[];
 }
 

@@ -3,8 +3,8 @@ const remarkSlug = require('remark-slug');
 
 module.exports = {
   siteMetadata: {
-    title: '@paljs/ui',
-    description: 'React Styled Components with bootstrap grid system.',
+    title: 'Pal.js',
+    description: 'I am your friend in building NodeJs, Prisma, GraphQL, React project',
     author: 'Ahmed Elywa',
   },
   plugins: [

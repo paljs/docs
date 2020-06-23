@@ -711,6 +711,15 @@ This plugin adds three parts
     - `UserUpdateManyMutationInput`
     
 
+**for include admin settings queries you nees to pass in plugin settings
+
+```ts
+paljs({
+  includeAdmin: true,
+// by default adminSchemaPath is `prisma/` you can change it
+  adminSchemaPath: 'prisma/'
+})
+```
 
 ### nexus
 
