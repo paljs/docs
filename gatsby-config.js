@@ -77,7 +77,7 @@ module.exports = {
         short_name: 'Pal',
         start_url: '/dashboard',
         display: 'minimal-ui',
-        icon: 'src/images/plack.png', // This path is relative to the root of the site.
+        icon: 'src/images/logo.png', // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
