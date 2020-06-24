@@ -78,7 +78,7 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
 };
 
 SEO.defaultProps = {
-  keywords: ['OAH', 'application', 'react'],
+  keywords: ['Pal.js', 'application', 'react'],
 };
 
 interface SEOProps {

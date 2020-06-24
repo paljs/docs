@@ -58,7 +58,7 @@ sorry for now you can't customize breakpoints but will work on it
 
 ## Breakpoint functions
 
-OAH themes have 4 breakpoints functions to use simply in styled components
+Pal.js UI themes have 4 breakpoints functions to use simply in styled components
 
 #### breakpointUp
 

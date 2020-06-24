@@ -19,7 +19,7 @@ function Ref() {
         },
         {
           title: 'Github Repository',
-          url: 'https://github.com/AhmedElywa/oah-ui', // goes directly into `href` attribute
+          url: 'https://github.com/paljs/ui', // goes directly into `href` attribute
         },
       ],
     },

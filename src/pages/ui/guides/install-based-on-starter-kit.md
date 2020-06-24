@@ -7,15 +7,15 @@ import SEO from 'src/components/SEO';
 
 # Install Based on Starter Kit
 
-Starting Pal.js UI from [oah-admin](https://github.com/AhmedElywa/oah-admin) starter kit is the easiest way to run your first Pal.js UI application.
+Starting Pal.js UI from [gatsby-admin-template](https://github.com/paljs/gatsby-admin-template) starter kit is the easiest way to run your first Pal.js UI application.
 
-Please note, that **oah-admin** is just a frontend application. Backend integration can be done relatively simple, but you should be aware that all the data is mocked using JavaScript objects.
+Please note, that **gatsby-admin-template** is just a frontend application. Backend integration can be done relatively simple, but you should be aware that all the data is mocked using JavaScript objects.
 If you want the data to be dynamic, you should consider developing a backend integration by your own.
 The Pal.js UI team doesn't consider providing generic integration layer as a part of this project because every backend API has a different structure in terms of data format and URLs.
 
 ## Install tools
 
-To install oah-admin on your machine you need to have the following tools installed:
+To install gatsby-admin-template on your machine you need to have the following tools installed:
 
 - Git - <https://git-scm.com>
 - Node.js - <https://nodejs.org> Please note the **version** should be **>=8**
@@ -25,7 +25,7 @@ To install oah-admin on your machine you need to have the following tools instal
 <div class="note note-warning">
   <div class="note-title">Warning!</div>
   <div class="note-body">
-    Please note that <strong>it is not possible</strong> to build oah-admin
+    Please note that <strong>it is not possible</strong> to build gatsby-admin-template
     <strong> without these tools</strong> and it will not be possible because of
     the way how React is built.
   </div>
@@ -33,16 +33,16 @@ To install oah-admin on your machine you need to have the following tools instal
 
 ## Download the code
 
-When you completed tools setup, you need to download the code of **oah-admin** application. The easiest way to do that is to clone GitHub repository:
+When you completed tools setup, you need to download the code of **gatsby-admin-template** application. The easiest way to do that is to clone GitHub repository:
 
 ```bash
-git clone https://github.com/AhmedElywa/oah-admin.git
+git clone https://github.com/paljs/gatsby-admin-template.git
 ```
 
 After clone is completed, you need to install npm modules:
 
 ```bash
-cd oah-admin && npm i || yarn
+cd gatsby-admin-template && npm i || yarn
 ```
 
 <div class="note note-warning">

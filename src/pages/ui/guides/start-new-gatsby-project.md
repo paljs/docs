@@ -8,16 +8,16 @@ import SEO from 'src/components/SEO';
 # Start new project
 
 If you don't have any code yet, please consider checking [Gatsby Cli](https://www.gatsbyjs.org/docs/quick-start) documentation for help to create your app.
-In case you want to start based on our oah-admin starter kit, please check out [Based on Starter Kit (oah-admin)](/ui/guides/install-based-on-starter-kit) article.
+In case you want to start based on our gatsby-admin-template starter kit, please check out [Based on Starter Kit (gatsby-admin-template)](/ui/guides/install-based-on-starter-kit) article.
 
 <div class="note note-info">
-  <div class="note-title">oah-admin custom components</div>
+  <div class="note-title">gatsby-admin-template custom components</div>
   <div class="note-body">
     Please note, this tutorial explains how to install Pal.js UI into your project
-    including Theme System, Components. If you want to re-use any of oah-admin
+    including Theme System, Components. If you want to re-use any of gatsby-admin-template
     <strong> custom</strong> components (like Temperature Widget, Dashboard charts,
-    etc) without using oah-admin itself, please follow this guide and in the end
-    just copy any of oah-admin custom components you need into your project, register
+    etc) without using gatsby-admin-template itself, please follow this guide and in the end
+    just copy any of gatsby-admin-template custom components you need into your project, register
     them in your modules and that's it.
   </div>
 </div>
@@ -58,7 +58,7 @@ yarn add @paljs/ui styled-components
 
 ## Layout
 
-This example of layout component with change theme and change dirction will explain all the details in his section
+This example of layout component with change theme and change direction will explain all the details in his section
 
 ```jsx
 import React, { useState, useRef, Fragment } from 'react';
