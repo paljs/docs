@@ -7,13 +7,28 @@ import MdxCard from 'src/components/MdxCard';
 
 <img src="/header.png" alt="header" />
 
-## Quick Start
+## Introduction
 
-Pal.js I am your friend in your next NodeJS, Prisma, GraphQL, React project 
+Pal.js stands for "I am your friend!". It is a set of tools to help you bootstrap your next NodeJS, Prisma, GraphQL, React project. The library currently contains the following tools and examples:
 
-## Install tools
+Tools
+1. Prisma-select - An extension to tackle down N+1 issues with better query construction using prisma's query engine.
+2. Prisma-delete - An extension on documenting prisma.schema on dealing with cascade deletes.
+3. Generator Class - Auto CRUD generations based on your prisma schema for SDL, Graphql-modules, and Nexus
+4. Prisma-Table - Front end components that interacts with pal.js auto generated mutation and queries.
 
-To install `@paljs/cli` on your machine you need to have the following tools installed:
+Examples
+
+1. full-stack-nextjs - A full stack admin framework using nexus and next.js.
+2. full-stack-gatsbyjs - A full stack admin framework using nexus and gatsby.
+3. apollo-nexus-schema - A server side app that uses apollo-sever and nexus with pal.js's auto generations.
+4. nexus - A server side app that uses nexus framework with pal.js's auto generations.
+5. apollo-sdl-first - A server side app that uses sdl-first approach and apollo server with pal.js's auto generations.
+6. graphql-modules - A server side app that uses apollo server and graphql-modules toolsets with pal.js's auto generations.
+
+## Requirements
+
+To install `@paljs/cli` on your machine, make sure to have the following tools installed:
 
 - Git - <https://git-scm.com>
 - Node.js - <https://nodejs.org> Please note the **version** should be **>=12**
@@ -21,10 +36,9 @@ To install `@paljs/cli` on your machine you need to have the following tools ins
 - Prisma - [CLI](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-cli/installation) Modern Database Access for TypeScript & Node.js
 
 
-
 ## Install PalJS CLI
 
-This command installs PalJS CLI globally on your machine.
+To install PalJS CLI globally on your machine, please run the commands below.
 
 ```shell
 yarn global add @paljs/cli
