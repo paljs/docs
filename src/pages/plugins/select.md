@@ -8,7 +8,7 @@ import MdxCard from 'src/components/MdxCard';
 
 ## Prisma select
 
-Convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` this will give you the best performance because you will just query exactly what you want in RootQuery this mean one resolver so no more `N + 1` issue.
+Prisma Select takes the `info: GraphQLResolveInfo` object in general graphql arguments (parent, args, context, info) to select object accepted by `prisma client`. The approach allows a better performance since you will only be using one resolver to retrieve all your request. By doing so, it also eliminates the `N + 1` issue.
 
 **CONTENT**
 
@@ -83,9 +83,9 @@ function take 3 args:
 
 **Example of use**
 
-We have mutation call login and return non schema model type `AuthPayload` and it's contain schema model type.
+If We have a mutation called "login", which returns a non schema model type called `AuthPayload` that has a schema model type in it, 
 
-I need to return User type with filter.
+like the following example,
 
 ```graphql
 type AuthPayload {
@@ -97,7 +97,7 @@ type Mutation {
 }
 ```
 
-Here how to go in nested type, filter and merge custom object.
+Here's how the nested type, filter and merge custom object would look like.
 
 ```ts
 const resolver = {
@@ -118,7 +118,7 @@ const resolver = {
 
 ### mergeDeep
 
-Static method you can use to merge our converted object with your custom object.
+This is a static method which you can use to merge our converted object with your custom object.
 
 Also you can use it to merge any object with another object.
 
@@ -140,7 +140,8 @@ const resolvers = {
 
 ### filter
 
-We have private method to filter your client requested fields if not inside your prisma schema Model. This give you ability to customize your type and add more fields not in schema model
+Prisma Select can also be used as a private method to filter your computed fields that are not included originally in your prisma schema. This feature gives you the ability to customize additional fields in schema.
+
 
 **_Example_**
 
@@ -163,7 +164,7 @@ type User {
 }
 ```
 
-AS you see here we must return `firstName` and `lastName` even if client not request them to use in `fullName`.
+By adding `firstName` and `lastName` to PrismaSelect in the user field of Query, and `fullName` in User, the client can request fullName directly.
 
 ```ts{6,17}
 import { PrismaSelect } from '@prisma-tools/select';
@@ -194,7 +195,7 @@ const resolvers = {
 
 ## Performance Example
 
-We have `Prisma Schema` with three models.
+If we have a `Prisma Schema` with the models below.
 
 ```prisma
 model User {
@@ -221,7 +222,7 @@ model Comment {
 }
 ```
 
-So the normal `GraphQL Resolvers` to get one User will be like this:
+The normal `GraphQL Resolvers` to get one User will be like this:
 
 ```js
 const resolvers = {
@@ -259,7 +260,7 @@ Let me do GraphQL query to get one user with his posts and comments inside posts
 }
 ```
 
-In the GraphQL query we just need id form every record and what is happen we select all tables fields from db like you see in log of queries we have 5 queries to do our request.
+Even though we are only requesting ids in the query, the backend is doing 5 queries to select all the table fields as the log shows. 
 
 ```
 prisma:query SELECT `dev`.`User`.`id`, `dev`.`User`.`createdAt`, `dev`.`User`.`email`, `dev`.`User`.`name`, `dev`.`User`.`password`, `dev`.`User`.`groupId` FROM `dev`.`User` WHERE `dev`.`User`.`id` = ? LIMIT ? OFFSET ?
@@ -269,7 +270,7 @@ prisma:query SELECT `dev`.`Post`.`id` FROM `dev`.`Post` WHERE `dev`.`Post`.`id` 
 prisma:query SELECT `dev`.`Comment`.`id`, `dev`.`Comment`.`contain`, `dev`.`Comment`.`postId`, `dev`.`Comment`.`authorId`, `dev`.`Comment`.`createdAt`, `dev`.`Comment`.`updatedAt`, `dev`.`Comment`.`postId` FROM `dev`.`Comment` WHERE `dev`.`Comment`.`postId` IN (?,?,?) LIMIT ? OFFSET ?
 ```
 
-Ok with my way `GraphQL Resolvers`:
+With PalJs's Tool `GraphQL Resolvers`:
 
 ```js
 import { PrismaSelect } from '@paljs/plugins';
@@ -287,7 +288,7 @@ import { PrismaSelect } from '@paljs/plugins';
 }
 ```
 
-Will do same GraphQL query :
+When we do the same query:
 
 ```graphql
 {
@@ -303,9 +304,8 @@ Will do same GraphQL query :
 }
 ```
 
-And here our db queries log for our request.
-First we have just 3 queries so we saved one query for every relation in our request.
-second we just select `id` from db that we asked in GraphQl query:
+According to this log, We only get 3 queries using our tool. By using Paljs,
+we first query for all the relationship between models, then we select the `id` from db
 
 ```
 prisma:query SELECT `dev`.`User`.`id` FROM `dev`.`User` WHERE `dev`.`User`.`id` = ? LIMIT ? OFFSET ?
