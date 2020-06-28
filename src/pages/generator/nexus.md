@@ -8,8 +8,8 @@ import MdxCard from 'src/components/MdxCard';
 
 ## Nexus
 
-Auto generate CRUD system from your `schema.prisma` file. 
-  
+Auto generate CRUD system from your `schema.prisma` file.
+
 **CONTENT**
 
 - [Example Usage](#example-usage)
@@ -24,7 +24,6 @@ Auto generate CRUD system from your `schema.prisma` file.
 ## Example Usage
 
 For more information about Prisma look at they [Docs](https://www.prisma.io/docs)
-
 
 `schema.prisma`
 
@@ -70,7 +69,7 @@ After build your `schema.prisma` file all you need to run
 
 **Every model will have folder contain 10 files:**
 
->NOTE: You can customize all this files and add your logic code inside it just `*/type.ts` will rewrite on it.
+> NOTE: You can customize all this files and add your logic code inside it just `*/type.ts` will rewrite on it.
 
 - User model
   - `User/mutations/createOne.ts`
@@ -94,7 +93,6 @@ After build your `schema.prisma` file all you need to run
   - `Post/queries/findMany.ts`
   - `Post/queries/findOne.ts`
   - `Post/type.ts`
-
 
 </MdxCard>
 
@@ -156,11 +154,11 @@ schema.extendType({
         return prisma.user.findOne({
           where,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
+});
 ```
 
 </Tab>
@@ -185,12 +183,11 @@ schema.extendType({
         return prisma.user.findMany({
           ...args,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
@@ -210,17 +207,15 @@ schema.extendType({
         take: 'Int',
       },
       resolve(_parent, args, { prisma }) {
-        return prisma.user.count(args)
+        return prisma.user.count(args);
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
 </Tabs>
-
 
 `mutations`
 
@@ -244,12 +239,11 @@ schema.extendType({
         return prisma.user.create({
           data,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
@@ -269,16 +263,15 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma, select }) => {
-        await prisma.onDelete({ model: 'User', where })
+        await prisma.onDelete({ model: 'User', where });
         return prisma.user.delete({
           where,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
@@ -306,12 +299,11 @@ schema.extendType({
           where,
           data,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
@@ -342,11 +334,11 @@ schema.extendType({
         return prisma.user.upsert({
           ...args,
           ...select,
-        })
+        });
       },
-    })
+    });
   },
-})
+});
 ```
 
 </Tab>
@@ -365,13 +357,12 @@ schema.extendType({
         }),
       },
       resolve: async (_parent, { where }, { prisma }) => {
-        await prisma.onDelete({ model: 'User', where })
-        return prisma.user.deleteMany({ where })
+        await prisma.onDelete({ model: 'User', where });
+        return prisma.user.deleteMany({ where });
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
@@ -394,19 +385,17 @@ schema.extendType({
         }),
       },
       resolve(_parent, args, { prisma }) {
-        return prisma.user.updateMany(args)
+        return prisma.user.updateMany(args);
       },
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
 </Tabs>
 
 </MdxCard>
-
 
 <MdxCard>
 
@@ -450,7 +439,7 @@ export const User = objectType({
 <Tab title="findOne.ts">
 
 ```ts
-import { queryField, arg } from '@nexus/schema'
+import { queryField, arg } from '@nexus/schema';
 
 export const UserFindOneQuery = queryField('findOneUser', {
   type: 'User',
@@ -465,16 +454,16 @@ export const UserFindOneQuery = queryField('findOneUser', {
     return prisma.user.findOne({
       where,
       ...select,
-    })
+    });
   },
-})
+});
 ```
 
 </Tab>
 <Tab title="findMany.ts">
 
 ```ts
-import { queryField } from '@nexus/schema'
+import { queryField } from '@nexus/schema';
 
 export const UserFindManyQuery = queryField('findManyUser', {
   type: 'User',
@@ -491,17 +480,16 @@ export const UserFindManyQuery = queryField('findManyUser', {
     return prisma.user.findMany({
       ...args,
       ...select,
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
 <Tab title="findCount.ts">
 
 ```ts
-import { queryField } from '@nexus/schema'
+import { queryField } from '@nexus/schema';
 
 export const UserFindManyCountQuery = queryField('findManyUserCount', {
   type: 'Int',
@@ -513,15 +501,13 @@ export const UserFindManyCountQuery = queryField('findManyUserCount', {
     take: 'Int',
   },
   resolve(_parent, args, { prisma }) {
-    return prisma.user.count(args)
+    return prisma.user.count(args);
   },
-})
-
+});
 ```
 
 </Tab>
 </Tabs>
-
 
 `mutations`
 
@@ -529,7 +515,7 @@ export const UserFindManyCountQuery = queryField('findManyUserCount', {
 <Tab title="createOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema'
+import { mutationField, arg } from '@nexus/schema';
 
 export const UserCreateOneMutation = mutationField('createOneUser', {
   type: 'User',
@@ -544,17 +530,16 @@ export const UserCreateOneMutation = mutationField('createOneUser', {
     return prisma.user.create({
       data,
       ...select,
-    })
+    });
   },
-})
-
+});
 ```
 
 </Tab>
 <Tab title="deleteOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema'
+import { mutationField, arg } from '@nexus/schema';
 
 export const UserDeleteOneMutation = mutationField('deleteOneUser', {
   type: 'User',
@@ -566,22 +551,20 @@ export const UserDeleteOneMutation = mutationField('deleteOneUser', {
     }),
   },
   resolve: async (_parent, { where }, { prisma, select }) => {
-    await prisma.onDelete({ model: 'User', where })
+    await prisma.onDelete({ model: 'User', where });
     return prisma.user.delete({
       where,
       ...select,
-    })
+    });
   },
-})
-
-
+});
 ```
 
 </Tab>
 <Tab title="updateOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema'
+import { mutationField, arg } from '@nexus/schema';
 
 export const UserUpdateOneMutation = mutationField('updateOneUser', {
   type: 'User',
@@ -601,18 +584,16 @@ export const UserUpdateOneMutation = mutationField('updateOneUser', {
       where,
       data,
       ...select,
-    })
+    });
   },
-})
-
-
+});
 ```
 
 </Tab>
 <Tab title="upsertOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema'
+import { mutationField, arg } from '@nexus/schema';
 
 export const UserUpsertOneMutation = mutationField('upsertOneUser', {
   type: 'User',
@@ -635,16 +616,16 @@ export const UserUpsertOneMutation = mutationField('upsertOneUser', {
     return prisma.user.upsert({
       ...args,
       ...select,
-    })
+    });
   },
-})
+});
 ```
 
 </Tab>
 <Tab title="deleteMany.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema'
+import { mutationField, arg } from '@nexus/schema';
 
 export const UserDeleteManyMutation = mutationField('deleteManyUser', {
   type: 'BatchPayload',
@@ -655,19 +636,17 @@ export const UserDeleteManyMutation = mutationField('deleteManyUser', {
     }),
   },
   resolve: async (_parent, { where }, { prisma }) => {
-    await prisma.onDelete({ model: 'User', where })
-    return prisma.user.deleteMany({ where })
+    await prisma.onDelete({ model: 'User', where });
+    return prisma.user.deleteMany({ where });
   },
-})
-
-
+});
 ```
 
 </Tab>
 <Tab title="updateMany.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema'
+import { mutationField, arg } from '@nexus/schema';
 
 export const UserUpdateManyMutation = mutationField('updateManyUser', {
   type: 'BatchPayload',
@@ -682,11 +661,9 @@ export const UserUpdateManyMutation = mutationField('updateManyUser', {
     }),
   },
   resolve(_parent, args, { prisma }) {
-    return prisma.user.updateMany(args)
+    return prisma.user.updateMany(args);
   },
-})
-
-
+});
 ```
 
 </Tab>
@@ -698,27 +675,26 @@ export const UserUpdateManyMutation = mutationField('updateManyUser', {
 
 ## Add paljs plugin
 
-This plugin adds three parts 
+This plugin adds three parts
 
 - [PrismaSelect](/plugins/select) plugin to convert `info: GraphQLResolveInfo` to select object accepted by `prisma client` and add to `context`
 - Admin settings queries and mutations `getSchema`, `updateField`, `updateModel`
 - All models inputs type
-    - `UserWhereInput`
-    - `UserWhereUniqueInput`
-    - `UserOrderByInput`
-    - `UserCreateInput`
-    - `UserUpdateInput`
-    - `UserUpdateManyMutationInput`
-    
+  - `UserWhereInput`
+  - `UserWhereUniqueInput`
+  - `UserOrderByInput`
+  - `UserCreateInput`
+  - `UserUpdateInput`
+  - `UserUpdateManyMutationInput`
 
-**for include admin settings queries you nees to pass in plugin settings
+**for include admin settings queries you need to pass in plugin settings**
 
 ```ts
 paljs({
   includeAdmin: true,
-// by default adminSchemaPath is `prisma/` you can change it
-  adminSchemaPath: 'prisma/'
-})
+  // by default adminSchemaPath is `prisma/` you can change it
+  adminSchemaPath: 'prisma/',
+});
 ```
 
 ### nexus
