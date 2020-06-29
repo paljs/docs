@@ -1,10 +1,10 @@
 import { DefaultTheme } from 'styled-components';
 
-import cosmicTheme from '../../../../oah-ui/src/theme/cosmic';
-import corporateTheme from '../../../../oah-ui/src/theme/corporate';
-import defaultTheme from '../../../../oah-ui/src/theme/default';
-import darkTheme from '../../../../oah-ui/src/theme/dark';
-import mapping from '../../../../oah-ui/src/theme/mapping';
+import cosmicTheme from '../../../../ui/src/theme/cosmic';
+import corporateTheme from '../../../../ui/src/theme/corporate';
+import defaultTheme from '../../../../ui/src/theme/default';
+import darkTheme from '../../../../ui/src/theme/dark';
+import mapping from '../../../../ui/src/theme/mapping';
 
 import { ThemeObject, ThemeKey, ThemeKeys } from '@paljs/ui';
 
