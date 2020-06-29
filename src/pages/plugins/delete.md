@@ -7,9 +7,14 @@ import MdxCard from 'src/components/MdxCard';
 
 ## Introduction
 
-This tool is built for [Prisma](https://prisma.io)
+Prisma Delete is a plugin built for making delete operations in prisma [Prisma](https://prisma.io). Its a feature that utilizes the
+comments area in prisma.schema to annotate delete side effects on relations. This is a necessary feature as the official
+Prisma Migrate Cli has not released a standardized way to resolve `Relation onDelete`. 
 
-Prisma Migrate cli not supported `Relation onDelete` so this tool is workaround this option
+P.S. Prisma Delete uses Pal.js's `Schema` cli to generate a schema file for reference in our code in the server side to check for the types.
+The schema file will reside one level above the graphql models generated from the server side code. For example, when you have your models
+generated in the /api/graphql, a schema will be generated in the /api directory.
+
 
 **CONTENT**
 
@@ -38,14 +43,14 @@ npm i @paljs/plugins
 
 ## Example
 
-Use full example here [`Nexus Framework`](/nexus/framework) to fast start (prisma , nexus , typescript)
+Checkout the example [`pal create`](/cli/create) to fast start your next (prisma , nexus , typescript) project
 
-Specifies the deletion behavior and enables cascading deletes. In case a node with related nodes gets deleted, the deletion behavior determines what should happen to the related nodes. The input values for this argument are defined as an enum with the following possible values:
+In our prisma.schema, we can set the values from the options below to specify the deletion behavior. In case a node with related nodes gets deleted, the deletion behavior determines what should happen to the related nodes. The input values for this argument are defined as an enum with the following possible values:
 
 - `SET_NULL`: Set the related node(s) to `null`.
 - `CASCADE`: Delete the related node(s). Note that is not possible to set both ends of a bidirectional relation to `CASCADE`.
 
-To add onDelete Relation to any field just add comment before filed
+To add onDelete Relation to any field, just add the annotation one line above the field inside `prisma.schema` comment area
 `// @onDelete(CASCADE)` or `// @onDelete(SET_NULL)`
 
 ### `schema.prisma`
@@ -107,12 +112,13 @@ model Group {
 }
 ```
 
-- When a `User` record gets deleted, all its related `posts` records will be deleted as well and all its related `comments` records will be `author` `null`.
+- When a `User` record gets deleted, all its related `posts` records will be deleted as well and all its related `comments` records will be `author` `null`.	- When a `User` record gets deleted, all the related `posts` records from the user will be deleted, and all the related `author` field in `comments` record will be set a Null.
 - When a `Post` record gets deleted, it will simply be removed from the `posts` list on the related `User` record and all its related `comments` records will be deleted.
 
-### Use
+### How it works
 
-Here when we delete `user` will go thought schema and look to model
+When we make a deletion on the `user` model. The code will go through the `schema` file that was generated alongside when using Prisma Delete, and check for the annotations
+of // OnDelete(VALUE) that was set on the schema.
 
 ```ts
 import {PrismaDelete} from '@paljs/plugins';
@@ -163,9 +169,9 @@ const resolvers = {
 
 `prismaDelete.onDelete` accept object
 
-- `model` model name like you define in `schema.prisma`
-- `where` object to to find delete result same `{ id: 1}`
-- `deleteParent` delete result from this model you pass `default: false` you can send it `true` to delete row and return delete row data
+- `model` model name that was defined in `schema.prisma`
+- `where` query object to retrive the result `{ id: 1}`
+- `deleteParent` A flag to determine whether the model should be deleted and returned when its defined as `true`
 
 ```ts
 await prismaDelete.onDelete({ model: 'User', where, deleteParent: true });
@@ -202,7 +208,8 @@ export function createContext(): Context {
 }
 ```
 
-And you can use from context in resolves
+The above code below is how it should be used in resolvers. This part of code could also be auto generated
+from Pal.js's server models.
 
 ```ts
 resolve(_, { where }, { prisma }) {
