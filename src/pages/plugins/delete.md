@@ -43,7 +43,7 @@ npm i @paljs/plugins
 
 ## Example
 
-Checkout the example [`Nexus Framework`](/nexus/framework) to fast start your next (prisma , nexus , typescript) project
+Checkout the example [`pal create`](/cli/create) to fast start your next (prisma , nexus , typescript) project
 
 In our prisma.schema, we can set the values from the options below to specify the deletion behavior. In case a node with related nodes gets deleted, the deletion behavior determines what should happen to the related nodes. The input values for this argument are defined as an enum with the following possible values:
 
