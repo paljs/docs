@@ -112,8 +112,8 @@ model Group {
 }
 ```
 
-- When a `User` record gets deleted, all the related `posts` records from the user will be deleted, and all the related `author` field in `comments` record will be set a Null.
-- When a `Post` record gets deleted, all the related `posts` and `comments` records under user will be deleted.
+- When a `User` record gets deleted, all its related `posts` records will be deleted as well and all its related `comments` records will be `author` `null`.	- When a `User` record gets deleted, all the related `posts` records from the user will be deleted, and all the related `author` field in `comments` record will be set a Null.
+- When a `Post` record gets deleted, it will simply be removed from the `posts` list on the related `User` record and all its related `comments` records will be deleted.
 
 ### How it works
 
