@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape } from '../shared';
 import { SelectStyled } from './Outline';
-import { Card, CardBody } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
 
 const options: { value: any; label: any }[] = [
   { label: 'Clean', value: '' },

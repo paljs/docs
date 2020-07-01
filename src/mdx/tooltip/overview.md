@@ -6,20 +6,15 @@ import MdxCard from 'src/components/MdxCard';
 
 Powerful Tooltip Component, which provides the best UX for your users.
 
-<div class="note note-info">
-  <div class="note-title">Note</div>
-  <div class="note-body">
-      The pest hard work in Pal.js UI Tooltip component placement will be changes
-      automatically with clockwise if default placement hide any popover content
-      and if no placement will cover popover content will choose the best one to
-      show the most of contents
-  </div>
-</div>
+> NOTE: The pest hard work in Pal.js UI Tooltip component placement will be changes
+> automatically with clockwise if default placement hide any popover content
+> and if no placement will cover popover content will choose the best one to
+> show the most of the contents
 
 ### Usage
 
 ```js
-import { Tooltip } from '@paljs/ui';
+import Tooltip from '@paljs/ui/Tooltip';
 ```
 
 Tooltip has different placements, such as: top, bottom, left, right, start and end which can be used as following:

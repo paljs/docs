@@ -21,7 +21,7 @@ Conversational UI collection - a set of components for chat-like UI construction
 ### Usage
 
 ```js
-import { Chat, ChatForm, ChatMessages } from '@paljs/ui';
+import { Chat, ChatForm, ChatMessages } from '@paljs/ui/Chat';
 ```
 
 Enjoy the conversation and the beautiful UI.

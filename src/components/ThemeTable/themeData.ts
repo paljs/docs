@@ -1,19 +1,5 @@
 import { DefaultTheme } from 'styled-components';
-
-import cosmicTheme from '../../../../ui/src/theme/cosmic';
-import corporateTheme from '../../../../ui/src/theme/corporate';
-import defaultTheme from '../../../../ui/src/theme/default';
-import darkTheme from '../../../../ui/src/theme/dark';
-import mapping from '../../../../ui/src/theme/mapping';
-
-import { ThemeObject, ThemeKey, ThemeKeys } from '@paljs/ui';
-
-const themeValues = {
-  default: defaultTheme,
-  cosmic: cosmicTheme,
-  corporate: corporateTheme,
-  dark: darkTheme,
-};
+import { mapping, themes, ThemeObject, ThemeKey, ThemeKeys } from '@paljs/theme';
 
 function getKeyValue(settings: ThemeObject, key: ThemeKey): ThemeKeys {
   if (settings[key] in settings) {
@@ -29,7 +15,7 @@ function getThemeParent(settings: ThemeObject, theme: DefaultTheme['name'], with
       return {
         key,
         value: getKeyValue(settings, key),
-        default: !themeValues[theme][key],
+        default: !themes[theme][key],
         parent: settings[key] in settings ? settings[key] : false,
       };
     });
@@ -42,9 +28,9 @@ export function getTheme(theme: DefaultTheme['name'], withMap = ''): ReturnTheme
     case 'cosmic':
     case 'corporate':
     case 'dark':
-      return getThemeParent({ ...defaultTheme, ...map, ...themeValues[theme]! }, theme, withMap);
+      return getThemeParent({ ...themes.default, ...map, ...themes[theme]! }, theme, withMap);
     default:
-      return getThemeParent({ ...defaultTheme, ...map }, theme, withMap);
+      return getThemeParent({ ...themes.default, ...map }, theme, withMap);
   }
 }
 

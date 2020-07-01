@@ -4,7 +4,7 @@ import MdxCard from 'src/components/MdxCard';
 
 ## Layout
 
-Layout component. When using Layout it is required that all child components should be placed in his place like example.
+Layout component. When using Layout it is required that all children components should be placed in his place like example.
 
 Basic example of two columns layout with the header:
 
@@ -23,7 +23,7 @@ import {
   LayoutContainer,
   LayoutContent,
   LayoutFooter,
-} from '@paljs/ui';
+} from '@paljs/ui/Layout';
 ```
 
 ### Context Api

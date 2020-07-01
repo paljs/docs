@@ -7,24 +7,24 @@ import SEO from 'src/components/SEO';
 
 ## Eva Icons
 
-In case you need to have more icons available, Pal.js UI provides a `@paljs/eva-icon` pack with 480+ SVG icons.
+In case you need to have more icons available, Pal.js UI provides a `@paljs/icons` pack with 480+ SVG icons.
 
 Install the pack:
 
 ```bash
-yarn add @paljs/eva-icon
+yarn add @paljs/icons
 ```
 
 Or
 
 ```bash
-npm i @paljs/eva-icon
+npm i @paljs/icons
 ```
 
 In your Layout page add icons to Layout component
 
 ```jsx{4}
-import icons from '@paljs/eva-icon';
+    import icons from '@paljs/icons';
 
 //...
 <Layout windowMode evaIcons={icons}>

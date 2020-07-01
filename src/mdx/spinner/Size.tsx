@@ -1,5 +1,8 @@
 import React from 'react';
-import { Row, Col, Card, CardBody, Spinner } from '@paljs/ui';
+import Spinner from '@paljs/ui/Spinner';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
+import { Card, CardBody } from '@paljs/ui/Card';
 import { size } from '../shared';
 
 function Size() {

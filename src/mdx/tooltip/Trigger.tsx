@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, CardBody, Button, Tooltip } from '@paljs/ui';
+import Tooltip from '@paljs/ui/Tooltip';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { Button } from '@paljs/ui/Button';
 import { trigger } from '../shared';
 
 function Trigger() {

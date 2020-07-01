@@ -19,7 +19,7 @@ Powerful popover Component, which provides the best UX for your users.
 ### Usage
 
 ```js
-import { Popover } from '@paljs/ui';
+import Popover  from '@paljs/ui/Popover';
 ```
 
 Popover has different placements, such as: top, bottom, left, right, start and end which can be used as following:

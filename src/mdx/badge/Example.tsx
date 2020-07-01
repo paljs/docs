@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, Badge } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import Badge from '@paljs/ui/Badge';
 
 function Example() {
   return (

@@ -1,4 +1,8 @@
-import { Row, Col, Card, CardBody, Button, ButtonLink } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
+import { Button, ButtonLink } from '@paljs/ui/Button';
+
 import { navigate } from 'gatsby';
 import React from 'react';
 import { appearance, shape, size, status } from '../shared';

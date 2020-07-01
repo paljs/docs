@@ -39,7 +39,7 @@ When you completed tools setup, you need to download the code of **gatsby-admin-
 git clone https://github.com/paljs/gatsby-admin-template.git
 ```
 
-After clone is completed, you need to install npm modules:
+After the clone completed, you need to install npm modules:
 
 ```bash
 cd gatsby-admin-template && npm i || yarn
@@ -71,7 +71,7 @@ To create a bundle in production mode, execute:
 npm run build || yarn build
 ```
 
-This will clear up your `public` folder (where release files are located) and generate a release build.
+This will clear up your `public` folder (where release files located) and generate a release build.
 Now you can copy the sources from the `public` folder and use it with any backend frameworks
 
 </MdxCard>

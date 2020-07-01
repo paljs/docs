@@ -4,7 +4,7 @@ import MdxCard from 'src/components/MdxCard';
 
 ## List
 
-List is a container component that wraps ListItem component.
+List is a container component wraps ListItem component.
 
 Basic example:
 
@@ -13,7 +13,7 @@ Basic example:
 ### Usage
 
 ```js
-import { List, ListItem } from '@paljs/ui';
+import { List, ListItem } from '@paljs/ui/List';
 ```
 
 List of users:

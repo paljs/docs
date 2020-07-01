@@ -11,7 +11,7 @@ Dynamic tabset component.
 ### Usage
 
 ```js
-import { Tabs, Tab } from '@paljs/ui';
+import { Tabs, Tab } from '@paljs/ui/Tabs';
 ```
 
 #### Controlled

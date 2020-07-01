@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
 import styled, { css } from 'styled-components';
 import { TableCss } from './Table';
 

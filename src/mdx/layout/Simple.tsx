@@ -7,7 +7,7 @@ import {
   LayoutContainer,
   LayoutContent,
   LayoutFooter,
-} from '@paljs/ui';
+} from '@paljs/ui/Layout';
 import styled from 'styled-components';
 const SimpleStyle = styled.div`
   height: 50vh;

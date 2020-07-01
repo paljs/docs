@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Spinner, Tabs, Tab } from '@paljs/ui';
+import Spinner from '@paljs/ui/Spinner';
+import { Card } from '@paljs/ui/Card';
+import { Tabs, Tab } from '@paljs/ui/Tabs';
 
 function TabTest() {
   const [showTab, setShowTab] = useState(false);

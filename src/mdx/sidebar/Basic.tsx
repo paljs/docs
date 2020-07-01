@@ -1,6 +1,8 @@
 import React from 'react';
-import { Layout, LayoutColumns, LayoutColumn, LayoutContainer, LayoutContent, Sidebar, SidebarBody } from '@paljs/ui';
+import { Layout, LayoutColumns, LayoutColumn, LayoutContainer, LayoutContent } from '@paljs/ui/Layout';
+import { Sidebar, SidebarBody } from '@paljs/ui/Sidebar';
 import styled from 'styled-components';
+
 const SimpleStyle = styled.div`
   height: 50vh;
   overflow: hidden;
@@ -8,6 +10,7 @@ const SimpleStyle = styled.div`
     background-color: #edeef7;
   }
 `;
+
 export default function Basic() {
   return (
     <SimpleStyle>

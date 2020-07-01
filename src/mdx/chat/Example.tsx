@@ -1,4 +1,4 @@
-import { Chat, ChatForm, ChatMessages, MessageProps, AttachedFile } from '@paljs/ui';
+import { Chat, ChatForm, ChatMessages, MessageProps, AttachedFile } from '@paljs/ui/Chat';
 import React, { useState } from 'react';
 import defaultMessages from './messages';
 

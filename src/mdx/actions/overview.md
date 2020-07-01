@@ -9,7 +9,7 @@ Shows a horizontal list of actions, available in multiple sizes. Aligns items ve
 ### Usage
 
 ```js
-import { Actions } from '@paljs/ui';
+import { Actions } from '@paljs/ui/Actions';
 ```
 
 [Example](demo://Example.tsx)

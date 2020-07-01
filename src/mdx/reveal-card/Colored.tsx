@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, RevealCard } from '@paljs/ui';
+import RevealCard  from '@paljs/ui/RevealCard';
+import { Card, CardBody } from '@paljs/ui/Card';
 
 export default function Colored() {
   return (

@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
-import { Accordion, AccordionItem, Row, Col, Button, AccordionRefObject } from '@paljs/ui';
+import { Accordion, AccordionItem, AccordionRefObject } from '@paljs/ui/Accordion';
+import { Button } from '@paljs/ui/Button';
+import Col from '@paljs/ui/Col';
+import Row from '@paljs/ui/Row';
 
 export default function Ref() {
   const accordionRef = useRef<AccordionRefObject>(null);

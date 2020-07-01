@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { Checkbox, Row, Col, Card, CardBody, Status } from '@paljs/ui';
+import { Checkbox } from '@paljs/ui/Checkbox';
+import { Card, CardBody } from '@paljs/ui/Card';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import { status } from '../shared';
+import { Status } from '@paljs/ui/types';
 
 const initState: any = {};
 status.forEach((key) => (initState[key] = false));

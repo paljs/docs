@@ -17,7 +17,7 @@ Styled spinner
 ### Usage
 
 ```jsx
-import { Spinner } from '@paljs/ui';
+import Spinner from '@paljs/ui/Spinner';
 ```
 
 Could be colored using `status` property

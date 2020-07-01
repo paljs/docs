@@ -17,7 +17,7 @@ You can play with this example:
 ### Usage
 
 ```js
-import { Toastr } from '@paljs/ui';
+import { Toastr } from '@paljs/ui/Toastr';
 ```
 
 In Toastr Component there is Default setup

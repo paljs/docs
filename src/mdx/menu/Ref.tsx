@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
-import { Menu, Button, MenuItemType, MenuRefObject, Card, CardBody } from '@paljs/ui';
+import { Button } from '@paljs/ui/Button';
+import { Menu, MenuRefObject } from '@paljs/ui/Menu';
+import { MenuItemType } from '@paljs/ui/types';
+import { Card, CardBody } from '@paljs/ui/Card';
 import { Link } from 'gatsby';
 import { Location } from '@reach/router';
 

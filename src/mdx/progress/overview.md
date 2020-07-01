@@ -9,7 +9,7 @@ Progress Bar is a component for indicating progress.
 ### Usage
 
 ```jsx
-import { Progress } from '@paljs/ui';
+import Progress from '@paljs/ui/ProgressBar';
 ```
 
 Progress bar background could be configured by providing a `status` property:

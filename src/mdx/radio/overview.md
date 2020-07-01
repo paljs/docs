@@ -9,7 +9,7 @@ The Radio provides the same functionality as native `<input type="radio"/>`
 ### Usage
 
 ```js
-import { Radio } from '@paljs/ui';
+import { Radio } from '@paljs/ui/Radio';
 ```
 
 [Example](demo://Example.tsx)

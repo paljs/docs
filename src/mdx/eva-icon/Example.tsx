@@ -1,5 +1,8 @@
 import React from 'react';
-import { Card, CardBody, EvaIcon, Col, Row } from '@paljs/ui';
+import { EvaIcon } from '@paljs/ui/Icon';
+import { Card, CardBody } from '@paljs/ui/Card';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import { status } from '../shared';
 
 export default function () {

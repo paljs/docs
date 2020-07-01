@@ -1,5 +1,6 @@
-import { Card, List, ListItem } from '@paljs/ui';
 import React from 'react';
+import { List, ListItem } from '@paljs/ui/List';
+import { Card } from '@paljs/ui/Card';
 
 export default function Basic() {
   const fruits = [

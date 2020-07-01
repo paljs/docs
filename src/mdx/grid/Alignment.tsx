@@ -1,4 +1,6 @@
-import { Container, Row, Col } from '@paljs/ui';
+import Container from '@paljs/ui/Container';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import React from 'react';
 import Box from './Box';
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, User } from '@paljs/ui';
+import User from '@paljs/ui/User';
+import { Card, CardBody } from '@paljs/ui/Card';
 
 function Hide() {
   return (

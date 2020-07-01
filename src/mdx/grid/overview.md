@@ -2,6 +2,14 @@ import MdxCard from 'src/components/MdxCard';
 
 <MdxCard>
 
+### Usage
+
+```js
+import Container from '@paljs/ui/Container';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
+```
+
 ### Responsive
 
 Responsive modifiers enable specifying different column sizes,
@@ -65,6 +73,6 @@ passing `false` to the breakpoint properties.
 
 ## Related Articles
 
-- [Grid System guide](/guides/grid-system).
+- [Grid System guide](/ui/guides/grid-system).
 
 </MdxCard>

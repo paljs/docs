@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { Link } from 'gatsby';
-import { EvaIcon } from '@paljs/ui';
+import { EvaIcon } from '@paljs/ui/Icon';
 import styled from 'styled-components';
 
 const ALink: React.FC<any> = ({ href, children }) => {

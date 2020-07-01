@@ -11,7 +11,7 @@ Reveal card example:
 ### Usage
 
 ```js
-import { RevealCard } from '@paljs/ui';
+import RevealCard from '@paljs/ui/RevealCard';
 ```
 
 It works with children components frist child will be front and second will be back

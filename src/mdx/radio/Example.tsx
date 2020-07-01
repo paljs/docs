@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, Radio } from '@paljs/ui';
+import { Radio } from '@paljs/ui/Radio';
+import { Card, CardBody } from '@paljs/ui/Card';
 
 function Example() {
   const onChangeRadio = (_: any) => {

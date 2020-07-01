@@ -17,7 +17,7 @@ Basic card example:
 ### Usage
 
 ```js
-import { Card, CardBody, CardHeader, CardFooter } from '@paljs/ui';
+import { Card, CardBody, CardHeader, CardFooter } from '@paljs/ui/Card';
 ```
 
 Colored cards could be simply configured by providing a `status` property:

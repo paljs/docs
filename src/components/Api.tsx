@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTheme, DefaultTheme } from 'styled-components';
-import { Card, CardBody } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
 import Table from './Table';
 import { getTheme } from './ThemeTable/themeData';
 

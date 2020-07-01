@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
 import Table from './Table';
 
 interface Props {

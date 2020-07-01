@@ -1,16 +1,9 @@
 import React, { useRef } from 'react';
-import {
-  Layout,
-  LayoutHeader,
-  LayoutColumns,
-  LayoutColumn,
-  LayoutContainer,
-  LayoutContent,
-  Sidebar,
-  Actions,
-  SidebarRefObject,
-} from '@paljs/ui';
+import { Layout, LayoutHeader, LayoutColumns, LayoutColumn, LayoutContainer, LayoutContent } from '@paljs/ui/Layout';
+import { Sidebar, SidebarRefObject } from '@paljs/ui/Sidebar';
+import { Actions } from '@paljs/ui/Actions';
 import styled from 'styled-components';
+
 const SimpleStyle = styled.div`
   height: 50vh;
   overflow: hidden;

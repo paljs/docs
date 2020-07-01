@@ -11,7 +11,7 @@ This Component build on [React Select](https://react-select.com/) you can look t
 ### Usage
 
 ```js
-import { Select } from '@paljs/ui';
+import Select from '@paljs/ui/Select';
 ```
 
 If you want to use it as the multi-select control you have to mark it as multiple. In this case, `Select` will work only with arrays - accept arrays and propagate arrays.

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, List, ListItem, User } from '@paljs/ui';
+import { List, ListItem } from '@paljs/ui/List';
+import { Card } from '@paljs/ui/Card';
+import User from '@paljs/ui/User';
 
 function Users() {
   const userList = [

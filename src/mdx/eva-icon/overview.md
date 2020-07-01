@@ -4,12 +4,12 @@ import MdxCard from 'src/components/MdxCard';
 
 # EvaIcon
 
-To use EvaIcon component you need to install his package first from [install eva icons](/guides/install-eva-icons)
+To use EvaIcon component you need to install his package first from [install eva icons](/ui/guides/install-eva-icons)
 
 ### Usage
 
 ```js
-import { EvaIcon } from '@paljs/ui';
+import { EvaIcon } from '@paljs/ui/Icon';
 ```
 
 **Status**

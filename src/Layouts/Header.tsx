@@ -1,6 +1,10 @@
 import React from 'react';
 import styled, { DefaultTheme } from 'styled-components';
-import { breakpointDown, Actions, Select, LayoutHeader, EvaIcon } from '@paljs/ui';
+import Select from '@paljs/ui/Select';
+import { LayoutHeader } from '@paljs/ui/Layout';
+import { EvaIcon } from '@paljs/ui/Icon';
+import { breakpointDown } from '@paljs/ui/breakpoints';
+import { Actions } from '@paljs/ui/Actions';
 
 const SidebarIcon = styled(Actions)`
   display: none;

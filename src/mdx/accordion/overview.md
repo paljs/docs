@@ -17,7 +17,7 @@ Basic example
 ### Usage
 
 ```js
-import { Accordion, AccordionItem } from '@paljs/ui';
+import { Accordion, AccordionItem } from '@paljs/ui/Accordion';
 ```
 
 With `multi` mode acordion can have multiple items expanded:

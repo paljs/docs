@@ -1,4 +1,5 @@
-import { Card, Actions, CardBody, ActionType } from '@paljs/ui';
+import { Actions, ActionType } from '@paljs/ui/Actions';
+import { Card, CardBody } from '@paljs/ui/Card';
 import React from 'react';
 import { Link } from 'gatsby';
 

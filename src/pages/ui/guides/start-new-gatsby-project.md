@@ -64,7 +64,7 @@ This example of layout component with change theme and change direction will exp
 import React, { useState, useRef, Fragment } from 'react';
 import { Link } from 'gatsby';
 import { ThemeProvider } from 'styled-components';
-import { createTheme } from '@paljs/ui';
+import { createTheme } from '@paljs/theme';
 import {
   Layout,
   LayoutHeader,

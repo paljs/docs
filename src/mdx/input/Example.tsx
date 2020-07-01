@@ -1,4 +1,5 @@
-import { Card, CardBody, InputGroup } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { InputGroup } from '@paljs/ui/Input';
 import React from 'react';
 import styled from 'styled-components';
 

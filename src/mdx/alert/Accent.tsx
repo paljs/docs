@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, Alert } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import Alert from '@paljs/ui/Alert';
 import { status } from '../shared';
 
 function Accent() {

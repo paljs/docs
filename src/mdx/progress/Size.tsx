@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, Progress } from '@paljs/ui';
+import Progress  from '@paljs/ui/ProgressBar';
+import { Card, CardBody } from '@paljs/ui/Card';
 import { size } from '../shared';
 
 function Size() {

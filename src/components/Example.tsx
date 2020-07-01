@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Tabs, Tab, Col } from '@paljs/ui';
+import { Tabs, Tab } from '@paljs/ui/Tabs';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
 import styled, { css } from 'styled-components';
 
 const Style = styled.div`

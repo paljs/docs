@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, CardBody, Menu, MenuItemType } from '@paljs/ui';
+import { Menu } from '@paljs/ui/Menu';
+import { MenuItemType } from '@paljs/ui/types';
+import { Card, CardBody } from '@paljs/ui/Card';
 import { Link } from 'gatsby';
 import { Location } from '@reach/router';
 

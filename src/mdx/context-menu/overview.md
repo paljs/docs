@@ -13,7 +13,7 @@ Just pass menu items array:
 ### Usage
 
 ```js
-import { ContextMenu } from '@paljs/ui';
+import ContextMenu from '@paljs/ui/ContextMenu';
 ```
 
 this component just `Menu` in `Popover` with some css style to custom it.

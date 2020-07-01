@@ -11,7 +11,7 @@ Flip card example:
 ### Usage
 
 ```js
-import { FlipCard } from '@paljs/ui';
+import FlipCard from '@paljs/ui/FlipCard';
 ```
 
 It work with children components frist child will be front and second will be back

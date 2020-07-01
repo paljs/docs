@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DefaultTheme } from 'styled-components';
-import { Card, CardBody, InputGroup } from '@paljs/ui';
+import { Card, CardBody } from '@paljs/ui/Card';
+import { InputGroup } from '@paljs/ui/Input';
 import { Link } from 'gatsby';
 import Table from '../Table';
 import { getTheme, ReturnThemeData } from './themeData';

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Card, CardBody, Spinner, Button, Col, Row, Status } from '@paljs/ui';
+import { Status } from '@paljs/ui/types';
+import { Button } from '@paljs/ui/Button';
+import Spinner from '@paljs/ui/Spinner';
+import Row from '@paljs/ui/Row';
+import Col from '@paljs/ui/Col';
+import { Card, CardBody } from '@paljs/ui/Card';
 
 function ButtonTest() {
   const [show, setShow] = useState(false);

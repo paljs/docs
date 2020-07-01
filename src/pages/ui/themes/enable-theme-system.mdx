@@ -21,7 +21,8 @@ To enable theme you must use [styled-components](https://www.styled-components.c
 import React, { useState } from 'react';
 // import ThemeProvider from styled-components to give it theme values
 import { ThemeProvider } from 'styled-components';
-import { Layout, createTheme } from '@paljs/ui';
+import { Layout } from '@paljs/ui/Layout';
+import { createTheme } from '@paljs/theme';
 
 export default function LayoutPage(props) {
   // define default theme and direction
@@ -93,7 +94,7 @@ return (
 This setup assumes that you have gone through the _Normal Setup_ steps but you will take `createTheme` function and custom it
 
 ```js
-import { createTheme } from '@paljs/ui';
+import { createTheme } from '@paljs/theme';
 
 export function themeService(theme, dir) {
   switch (theme) {

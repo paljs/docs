@@ -64,7 +64,7 @@ Pal.js UI themes have 4 breakpoints functions to use simply in styled components
 
 ```js
 import styled, { css } from 'styled-components';
-import { breakpointUp } from '@paljs/ui';
+import { breakpointUp } from '@paljs/ui/breakpoints';
 // Example: Hide starting at `min-width: 0`, and then show at the `md` breakpoint
 const Component = styled.div`
   display: none;
@@ -78,7 +78,7 @@ const Component = styled.div`
 
 ```js
 import styled, { css } from 'styled-components';
-import { breakpointDown } from '@paljs/ui';
+import { breakpointDown } from '@paljs/ui/breakpoints';
 // Example: Hide from `xxxl`, and then show at the `md` breakpoint to `min-width: 0;`
 const Component = styled.div`
   display: none;
@@ -92,7 +92,7 @@ const Component = styled.div`
 
 ```js
 import styled, { css } from 'styled-components';
-import { breakpointBetween } from '@paljs/ui';
+import { breakpointBetween } from '@paljs/ui/breakpoints';
 // Example: show in width between 768 and 1200 this take lower breakpoint, upper breakpoint
 const Component = styled.div`
   display: none;
@@ -106,7 +106,7 @@ const Component = styled.div`
 
 ```js
 import styled, { css } from 'styled-components';
-import { breakpointOnly } from '@paljs/ui';
+import { breakpointOnly } from '@paljs/ui/breakpoints';
 // Example: show in width between 768 and 991 from md to under lg
 const Component = styled.div`
   display: none;

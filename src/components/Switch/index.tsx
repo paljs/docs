@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
-import { Card, Tabs, Tab } from '@paljs/ui';
+import { Card } from '@paljs/ui/Card';
+import { Tabs, Tab } from '@paljs/ui/Tabs';
 
 const Switch: React.FC<{ title: string; children: React.ReactNode[] }> = (props) => {
   const [state, setState] = useState(0);

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Tabs, Tab } from '@paljs/ui';
+import { Tabs, Tab } from '@paljs/ui/Tabs';
+import { Card } from '@paljs/ui/Card';
 
 function Basic() {
   return (

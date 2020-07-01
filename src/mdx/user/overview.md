@@ -11,7 +11,7 @@ Represents a component showing a user avatar (picture) with a user name on the r
 ### Usage
 
 ```js
-import { User } from '@paljs/ui';
+import User from '@paljs/ui/User';
 ```
 
 You can hide unnecessary captions (name, title or both):

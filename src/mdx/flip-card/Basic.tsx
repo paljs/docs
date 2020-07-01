@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, FlipCard } from '@paljs/ui';
+import FlipCard from '@paljs/ui/FlipCard';
+import { Card, CardBody } from '@paljs/ui/Card';
 
 export default function Basic() {
   return (

@@ -15,18 +15,8 @@ Basic example
 ## Usage
 
 ```js
-import { Menu } from '@paljs/ui';
+import { Menu } from '@paljs/ui/Menu';
 ```
-
-<div class="note note-warning">
-  <div class="note-title">Warning!</div>
-  <div class="note-body">
-    Please note that you must pass <strong> Link Component </strong> from
-    <strong> @reach/router </strong> or any package use <strong>
-      @reach/router
-    </strong> like <strong>Gatsby</strong>
-  </div>
-</div>
 
 ```jsx{4}
 import { Link } from 'gatsby';

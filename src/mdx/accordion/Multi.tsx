@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, AccordionItem } from '@paljs/ui';
+import { Accordion, AccordionItem } from '@paljs/ui/Accordion';
 
 export default function Multi() {
   return (

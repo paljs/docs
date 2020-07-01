@@ -1,4 +1,4 @@
-import { MenuItemType } from '@paljs/ui';
+import { MenuItemType } from '@paljs/ui/types';
 
 const items: MenuItemType[] = [
   {

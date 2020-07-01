@@ -9,7 +9,7 @@ Styled checkbox component
 ### Usage
 
 ```js
-import { Checkbox } from '@paljs/ui';
+import { Checkbox } from '@paljs/ui/Checkbox';
 ```
 
 [Example](demo://Example.tsx)
