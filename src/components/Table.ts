@@ -54,12 +54,11 @@ export const TableCss = (theme: DefaultTheme) => css`
       }
     }
   }
-
 `;
 
 const Table = styled.table`
-width: 100%;
-${({theme}) => TableCss(theme)}
+  width: 100%;
+  ${({ theme }) => TableCss(theme)}
   &.striped {
     tbody tr:nth-child(odd) {
       background: ${({ theme }) => theme.layoutBackgroundColor};

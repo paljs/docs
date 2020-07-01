@@ -1,5 +1,5 @@
 import React from 'react';
-import RevealCard  from '@paljs/ui/RevealCard';
+import RevealCard from '@paljs/ui/RevealCard';
 import { Card, CardBody } from '@paljs/ui/Card';
 
 export default function Basic() {

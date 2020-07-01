@@ -83,7 +83,7 @@ function take 3 args:
 
 **Example of use**
 
-If We have a mutation called "login", which returns a non schema model type called `AuthPayload` that has a schema model type in it, 
+If We have a mutation called "login", which returns a non schema model type called `AuthPayload` that has a schema model type in it,
 
 like the following example,
 
@@ -141,7 +141,6 @@ const resolvers = {
 ### filter
 
 Prisma Select can also be used as a private method to filter your computed fields that are not included originally in your prisma schema. This feature gives you the ability to customize additional fields in schema.
-
 
 **_Example_**
 
@@ -260,7 +259,7 @@ Let me do GraphQL query to get one user with his posts and comments inside posts
 }
 ```
 
-Even though we are only requesting ids in the query, the backend is doing 5 queries to select all the table fields as the log shows. 
+Even though we are only requesting ids in the query, the backend is doing 5 queries to select all the table fields as the log shows.
 
 ```
 prisma:query SELECT `dev`.`User`.`id`, `dev`.`User`.`createdAt`, `dev`.`User`.`email`, `dev`.`User`.`name`, `dev`.`User`.`password`, `dev`.`User`.`groupId` FROM `dev`.`User` WHERE `dev`.`User`.`id` = ? LIMIT ? OFFSET ?

@@ -1,5 +1,5 @@
 import React from 'react';
-import Select  from '@paljs/ui/Select';
+import Select from '@paljs/ui/Select';
 import { Card, CardBody } from '@paljs/ui/Card';
 import { status } from '../shared';
 import styled from 'styled-components';

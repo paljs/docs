@@ -24,7 +24,7 @@ npm i @paljs/icons
 In your Layout page add icons to Layout component
 
 ```jsx{4}
-    import icons from '@paljs/icons';
+import icons from '@paljs/icons';
 
 //...
 <Layout windowMode evaIcons={icons}>

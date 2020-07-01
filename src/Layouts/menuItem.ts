@@ -10,21 +10,21 @@ const items: MenuItemType[] = [
     children: [
       {
         title: 'pal create',
-        link: {to: '/cli/create'}
+        link: { to: '/cli/create' },
       },
       {
         title: 'pal generate',
-        link: {to: '/cli/generator'}
+        link: { to: '/cli/generator' },
       },
       {
         title: 'pal schema',
-        link: {to: '/cli/schema'}
+        link: { to: '/cli/schema' },
       },
       {
         title: 'cnt',
         link: { to: '/cli/cnt' },
       },
-    ]
+    ],
   },
   {
     group: true,
@@ -63,7 +63,7 @@ const items: MenuItemType[] = [
         title: 'On Delete',
         link: { to: '/plugins/delete' },
       },
-    ]
+    ],
   },
   {
     title: 'Prisma Admin',

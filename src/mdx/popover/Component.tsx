@@ -1,5 +1,5 @@
 import React from 'react';
-import Popover  from '@paljs/ui/Popover';
+import Popover from '@paljs/ui/Popover';
 import { Tabs, Tab } from '@paljs/ui/Tabs';
 import { Card, CardBody } from '@paljs/ui/Card';
 import { Button } from '@paljs/ui/Button';

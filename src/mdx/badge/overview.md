@@ -11,7 +11,7 @@ Element is absolute positioned, so parent should be [positioned element](https:/
 ### Usage
 
 ```js
-import Badge  from '@paljs/ui/Badge';
+import Badge from '@paljs/ui/Badge';
 ```
 
 Badge with default position and status(color):

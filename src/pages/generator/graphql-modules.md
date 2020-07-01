@@ -248,8 +248,7 @@ import { Injectable } from '@graphql-modules/di';
 import { schema } from '../../schema';
 
 @Injectable()
-export class PrismaProvider extends PrismaClient
-  implements OnRequest, OnResponse {
+export class PrismaProvider extends PrismaClient implements OnRequest, OnResponse {
   constructor() {
     super();
   }

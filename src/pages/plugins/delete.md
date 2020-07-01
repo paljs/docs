@@ -9,12 +9,11 @@ import MdxCard from 'src/components/MdxCard';
 
 Prisma Delete is a plugin built for making delete operations in prisma [Prisma](https://prisma.io). Its a feature that utilizes the
 comments area in prisma.schema to annotate delete side effects on relations. This is a necessary feature as the official
-Prisma Migrate Cli has not released a standardized way to resolve `Relation onDelete`. 
+Prisma Migrate Cli has not released a standardized way to resolve `Relation onDelete`.
 
 P.S. Prisma Delete uses Pal.js's `Schema` cli to generate a schema file for reference in our code in the server side to check for the types.
 The schema file will reside one level above the graphql models generated from the server side code. For example, when you have your models
 generated in the /api/graphql, a schema will be generated in the /api directory.
-
 
 **CONTENT**
 
@@ -121,7 +120,7 @@ When we make a deletion on the `user` model. The code will go through the `schem
 of // OnDelete(VALUE) that was set on the schema.
 
 ```ts
-import {PrismaDelete} from '@paljs/plugins';
+import { PrismaDelete } from '@paljs/plugins';
 import { schema } from '../prisma/schema';
 
 t.field('deleteOneUser', {

@@ -52,14 +52,13 @@ frontend: {
 },
 ```
 
-2- with code use our [`UIGenerator`](/generator#uigenerator) class 
-
+2- with code use our [`UIGenerator`](/generator#uigenerator) class
 
 ### Add graphql queries and mutation
 
 To be able to update `adminSettings.json` file with your custom setting in a beautiful UI you have to add 1 query to pull schema in frontend and 2 mutations one for an update model settings and other for update field.
 
-If you use `Nexus` all you need to be sure you added [nexus-paljs](/generator/nexus#add-paljs-plugin) plugin in your backend 
+If you use `Nexus` all you need to be sure you added [nexus-paljs](/generator/nexus#add-paljs-plugin) plugin in your backend
 
 If you use another way you need to add these resolvers and typeDev to your backend graphql schema
 
@@ -89,19 +88,13 @@ export default {
       return db.get('models').find({ id }).assign(data).write();
     },
     updateField: (_parent, { id, modelId, data }) => {
-      return db
-        .get('models')
-        .find({ id: modelId })
-        .get('fields')
-        .find({ id })
-        .assign(data)
-        .write();
+      return db.get('models').find({ id: modelId }).get('fields').find({ id }).assign(data).write();
     },
   },
 };
 ```
 
-2- create typeDev file and add 
+2- create typeDev file and add
 
 ```ts
 import gql from 'graphql-tag';
@@ -365,9 +358,9 @@ export type GetColumnsPartial = (field: SchemaField, model?: SchemaModel) => Par
 
 Now we need to generate a page for every model with our prisma table here `src/components/PrismaTable.tsx`.
 
-You can add them manulay or use our cli `pal generate` 
+You can add them manulay or use our cli `pal generate`
 
-Add to your `pal.js` config file 
+Add to your `pal.js` config file
 
 ```
 frontend: {

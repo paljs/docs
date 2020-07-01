@@ -15,7 +15,7 @@ Colored alerts could be simply configured by providing a `status` property:
 #Usage
 
 ```js
-import Alert  from '@paljs/ui/Alert';
+import Alert from '@paljs/ui/Alert';
 ```
 
 It is also possible to assign an `accent` property for a slight alert highlight

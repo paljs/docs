@@ -31,15 +31,15 @@ import {
 Layout have Context Api you can use it like this example:
 
 ```jsx
-import {useContext} from 'react';
+import { useContext } from 'react';
 import { LayoutContext } from '@paljs/ui';
 
-function Test () {
+function Test() {
   const layout = useContext(LayoutContext);
 
   const addClassToLayout = () => {
     layout.addClass(['search-mode']);
-  }
+  };
 }
 ```
 

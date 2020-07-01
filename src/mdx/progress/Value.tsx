@@ -1,5 +1,5 @@
 import React from 'react';
-import Progress  from '@paljs/ui/ProgressBar';
+import Progress from '@paljs/ui/ProgressBar';
 import { Card, CardBody } from '@paljs/ui/Card';
 
 function Value() {

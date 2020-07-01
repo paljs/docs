@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Progress  from '@paljs/ui/ProgressBar';
-import { Status }  from '@paljs/ui/types';
+import Progress from '@paljs/ui/ProgressBar';
+import { Status } from '@paljs/ui/types';
 import { Card, CardBody } from '@paljs/ui/Card';
 import { Actions } from '@paljs/ui/Actions';
 import styled from 'styled-components';

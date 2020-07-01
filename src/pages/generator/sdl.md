@@ -21,18 +21,18 @@ import MdxCard from 'src/components/MdxCard';
 - Auto generate CRUD system from your `schema.prisma` file.
 
 **Every model will have folder contain 2 files**
+
 - **_typeDefs.ts_** contain graphql types for this model
 - **_resolvers.ts_** contain 3 queries and 6 mutations:
-   - `findOne`
-   - `findMany`
-   - `findCount`
-   - `createOne`
-   - `updateOne`
-   - `upsertOne`
-   - `deleteOne`
-   - `updateMany`
-   - `deleteMany`
-
+  - `findOne`
+  - `findMany`
+  - `findCount`
+  - `createOne`
+  - `updateOne`
+  - `upsertOne`
+  - `deleteOne`
+  - `updateMany`
+  - `deleteMany`
 
 </MdxCard>
 
@@ -205,13 +205,7 @@ let schema = makeExecutableSchema({ typeDefs, resolvers });
 // Build one sdl file have all types you can delete if you not need
 generateGraphQlSDLFile(schema);
 
-const middleware = async (
-  resolve,
-  root,
-  args,
-  context: Context,
-  info: GraphQLResolveInfo,
-) => {
+const middleware = async (resolve, root, args, context: Context, info: GraphQLResolveInfo) => {
   const result = new PrismaSelect(info).value;
   if (Object.keys(result.select).length > 0) {
     args = {
@@ -235,4 +229,3 @@ server.listen().then(({ url }) => {
 ```
 
 </MdxCard>
-

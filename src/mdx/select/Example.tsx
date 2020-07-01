@@ -1,5 +1,5 @@
 import React from 'react';
-import Select  from '@paljs/ui/Select';
+import Select from '@paljs/ui/Select';
 import { Card, CardBody } from '@paljs/ui/Card';
 
 const positionOptions: { value: any; label: any }[] = [

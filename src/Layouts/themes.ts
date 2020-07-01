@@ -17,7 +17,7 @@ const shared: Partial<DefaultTheme> = {
 const lightTheme: Partial<DefaultTheme> = {
   headerBackgroundColor: '#212935',
   actionsTextColor: 'backgroundBasicColor1',
-  textParagraphFontSize: '16px'
+  textParagraphFontSize: '16px',
 };
 
 export default function themeService(theme: DefaultTheme['name']): DefaultTheme {
