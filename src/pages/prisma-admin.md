@@ -236,6 +236,7 @@ Every field has Accordion with this content:
   - **filter** add filter option to this field in table if read checked.
   - **sort** add sortBy option to this field in table if read checked.
   - **editor** convert update and create input type to use quill editor or any custom editor you will add.
+  - **upload** use the `Upload` component in the update and create. You must send this component into `formInputs` prop because we do not have any default one for this option.
 
 </MdxCard>
 
@@ -325,6 +326,8 @@ interface ModelTableProps {
   // moving between table pages. we not show you all available pages we just see current page and other 3 options.
   // default: 4
   paginationOptions?: number;
+  // add a checkbox for every record on the table you can use for custom cases like delete many
+  onSelect?: (values: any[]) => void;
   // it's function return object with react table columns https://github.com/tannerlinsley/react-table
   // default here: https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx
   tableColumns?: GetColumnsPartial;
