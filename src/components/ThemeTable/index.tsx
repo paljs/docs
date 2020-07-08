@@ -18,11 +18,11 @@ const ThemeTable: React.FC<{ theme: DefaultTheme['name'] }> = (props) => {
 
   const getParent = (v: ReturnThemeData) => {
     if (v.default && v.parent) {
-      return <Link to={`/themes/default#${v.parent}`}>{v.parent} (default)</Link>;
+      return <Link to={`/ui/themes/default#${v.parent}`}>{v.parent} (default)</Link>;
     } else if (v.default) {
-      return <Link to={`/themes/default#${v.key}`}>{v.key} (default)</Link>;
+      return <Link to={`/ui/themes/default#${v.key}`}>{v.key} (default)</Link>;
     } else if (v.parent) {
-      return <Link to={`/themes/${props.theme}#${v.parent}`}>{v.parent}</Link>;
+      return <Link to={`/ui/themes/${props.theme}#${v.parent}`}>{v.parent}</Link>;
     } else {
       return '';
     }
@@ -50,7 +50,7 @@ const ThemeTable: React.FC<{ theme: DefaultTheme['name'] }> = (props) => {
                 return (
                   <tr key={v.key} id={v.key}>
                     <td>
-                      <Link to={`/themes/${props.theme}#${v.key}`}>{v.key}</Link>
+                      <Link to={`/ui/themes/${props.theme}#${v.key}`}>{v.key}</Link>
                     </td>
                     <td dangerouslySetInnerHTML={{ __html: getColor(v.value as string) }} />
                     <td>{getParent(v)}</td>
