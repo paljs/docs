@@ -67,7 +67,7 @@ After build your `schema.prisma` file all you need to run
 
 ## Output
 
-**Every model will have folder contain 10 files:**
+**Every model will have folder contain 11 files:**
 
 > NOTE: You can customize all this files and add your logic code inside it just `*/type.ts` will rewrite on it.
 
@@ -79,8 +79,9 @@ After build your `schema.prisma` file all you need to run
   - `User/mutations/deleteMany.ts`
   - `User/mutations/updateMany.ts`
   - `User/queries/findCount.ts`
+  - `User/queries/findCount.ts`
   - `User/queries/findMany.ts`
-  - `User/queries/findOne.ts`
+  - `User/queries/aggregate.ts`
   - `User/type.ts`
 - Post model
   - `Post/mutations/createOne.ts`
@@ -92,6 +93,7 @@ After build your `schema.prisma` file all you need to run
   - `Post/queries/findCount.ts`
   - `Post/queries/findMany.ts`
   - `Post/queries/findOne.ts`
+  - `Post/queries/aggregate.ts`
   - `Post/type.ts`
 
 </MdxCard>
@@ -212,6 +214,24 @@ schema.extendType({
     });
   },
 });
+```
+
+</Tab>
+<Tab title="aggregate.ts">
+
+```ts
+schema.extendType({
+  type: 'Query',
+  definition(t) {
+    t.field('aggregateUser', {
+      type: 'AggregateUser',
+      nullable: true,
+      resolve(_parent, _args, { prisma, select }) {
+        return prisma.user.aggregate(select) as any
+      },
+    })
+  },
+})
 ```
 
 </Tab>
@@ -504,6 +524,19 @@ export const UserFindManyCountQuery = queryField('findManyUserCount', {
     return prisma.user.count(args);
   },
 });
+```
+
+</Tab>
+<Tab title="aggregate.ts">
+
+```ts
+export const UserAggregateQuery = queryField('aggregateUser', {
+  type: 'AggregateUser',
+  nullable: true,
+  resolve(_parent, _args, { prisma, select }) {
+    return prisma.user.aggregate(select) as any
+  },
+})
 ```
 
 </Tab>

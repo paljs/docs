@@ -7,13 +7,9 @@ import MdxCard from 'src/components/MdxCard';
 
 ## Introduction
 
-Prisma Delete is a plugin built for making delete operations in prisma [Prisma](https://prisma.io). Its a feature that utilizes the
-comments area in prisma.schema to annotate delete side effects on relations. This is a necessary feature as the official
+Prisma Delete is a plugin built for making delete operations in prisma [Prisma](https://prisma.io). It's a feature that utilizes the
+comment's area in `prisma.schema` to annotate delete side effects on relations. This is a necessary feature as the official
 Prisma Migrate Cli has not released a standardized way to resolve `Relation onDelete`.
-
-P.S. Prisma Delete uses Pal.js's `Schema` cli to generate a schema file for reference in our code in the server side to check for the types.
-The schema file will reside one level above the graphql models generated from the server side code. For example, when you have your models
-generated in the /api/graphql, a schema will be generated in the /api directory.
 
 **CONTENT**
 
@@ -24,7 +20,6 @@ generated in the /api/graphql, a schema will be generated in the /api directory.
   - [Use](#use)
 - [`PrismaDelete` class](#prismadelete-class)
 - [Add to Context](#add-to-context)
-- [Have questions?](#have-questions)
 
 </MdxCard>
 
@@ -50,7 +45,7 @@ In our prisma.schema, we can set the values from the options below to specify th
 - `CASCADE`: Delete the related node(s). Note that is not possible to set both ends of a bidirectional relation to `CASCADE`.
 
 To add onDelete Relation to any field, just add the annotation one line above the field inside `prisma.schema` comment area
-`// @onDelete(CASCADE)` or `// @onDelete(SET_NULL)`
+`/// @onDelete(CASCADE)` or `/// @onDelete(SET_NULL)`
 
 ### `schema.prisma`
 
@@ -70,11 +65,11 @@ model User {
   email     String    @unique
   name      String?
   password  String
-  // @onDelete(CASCADE)
+  /// @onDelete(CASCADE)
   posts     Post[]
   group     Group?    @relation(fields: [groupId], references: [id])
   groupId   Int?
-  // @onDelete(SET_NULL)
+  /// @onDelete(SET_NULL)
   comments  Comment[]
 }
 
@@ -84,7 +79,7 @@ model Post {
   title     String
   author    User?     @relation(fields: [authorId], references: [id])
   authorId  Int?
-  // @onDelete(CASCADE)
+  /// @onDelete(CASCADE)
   comments  Comment[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -106,7 +101,7 @@ model Group {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // @onDelete(SET_NULL)
+  /// @onDelete(SET_NULL)
   users     User[]
 }
 ```
@@ -117,11 +112,10 @@ model Group {
 ### How it works
 
 When we make a deletion on the `user` model. The code will go through the `schema` file that was generated alongside when using Prisma Delete, and check for the annotations
-of // OnDelete(VALUE) that was set on the schema.
+of `/// OnDelete(VALUE)` that was set on the schema.
 
 ```ts
 import { PrismaDelete } from '@paljs/plugins';
-import { schema } from '../prisma/schema';
 
 t.field('deleteOneUser', {
   type: 'User',
@@ -132,8 +126,8 @@ t.field('deleteOneUser', {
       nullable: false,
     }),
   },
-  resolve(_, { where }, { prisma, select }) {
-    const prismaDelete = new PrismaDelete(prisma, schema);
+  resolve: async (_, { where }, { prisma, select }) => {
+    const prismaDelete = new PrismaDelete(prisma);
     await prismaDelete.onDelete({ model: 'User', where });
     return prisma.user.delete({
       where,
@@ -145,8 +139,8 @@ t.field('deleteOneUser', {
 // normal resolver
 const resolvers = {
   Query: {
-    deleteOneUser(_parent, { where }, { prisma }) {
-      const prismaDelete = new PrismaDelete(prisma, schema);
+    deleteOneUser: async (_parent, { where }, { prisma }) => {
+      const prismaDelete = new PrismaDelete(prisma);
       await prismaDelete.onDelete({ model: 'User', where });
       return prisma.user.delete({
         where,
@@ -164,7 +158,6 @@ const resolvers = {
 ## `PrismaDelete` class
 
 - `prisma` prisma client class
-- `schema` schema as object converted by our [schema cli](/schema#convert-to-file).
 
 `prismaDelete.onDelete` accept object
 
@@ -181,7 +174,6 @@ await prismaDelete.onDelete({ model: 'User', where, deleteParent: true });
 ```ts
 import { PrismaClient, PrismaClientOptions } from '@prisma/client';
 import { PrismaDelete, onDeleteArgs } from '@paljs/plugins';
-import { schema } from './schema';
 
 class Prisma extends PrismaClient {
   constructor(options?: PrismaClientOptions) {
@@ -189,7 +181,7 @@ class Prisma extends PrismaClient {
   }
 
   async onDelete(args: onDeleteArgs) {
-    const prismaDelete = new PrismaDelete(this, schema);
+    const prismaDelete = new PrismaDelete(this);
     await prismaDelete.onDelete(args);
   }
 }
@@ -211,7 +203,7 @@ The above code below is how it should be used in resolvers. This part of code co
 from Pal.js's server models.
 
 ```ts
-resolve(_, { where }, { prisma }) {
+resolve: async (_, { where }, { prisma }) => {
   await prisma.onDelete({ model: 'User', where, deleteParent: true });
 }
 ```
