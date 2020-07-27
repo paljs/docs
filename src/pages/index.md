@@ -13,12 +13,12 @@ Pal.js stands for `I am your friend!`. It is a set of tools to help you bootstra
 
 **_Tools_**
 
-- `Prisma-select` - An extension to tackle down N+1 issues with better query construction using Prisma query engine.
-- `Prisma-delete` - An extension on documenting prisma.schema on dealing with cascade deletes.
-- `Generator Class` - Auto CRUD generations based on your prisma schema for SDL, Graphql-modules, and Nexus
-- `Prisma-Table` - Front end components that interacts with pal.js auto generated mutation and queries.
+- [`Prisma-select`](/plugins/select) - An extension to tackle down N+1 issues with better query construction using Prisma query engine.
+- [`Prisma-delete`](/plugins/delete) - An extension on documenting prisma.schema on dealing with cascade deletes.
+- [`Generator Class`](/generator) - Auto CRUD generations based on your prisma schema for SDL, Graphql-modules, and Nexus
+- [`Prisma-Table`](/prisma-admin) - Front end components that interacts with pal.js auto generated mutation and queries.
 
-**_Examples_**
+[**_Examples_**](/cli/create#starter-examples)
 
 - `full-stack-nextjs` - A full stack admin framework using nexus and next.js.
 - `full-stack-gatsbyjs` - A full stack admin framework using nexus and gatsby.

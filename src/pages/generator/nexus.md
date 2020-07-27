@@ -65,6 +65,8 @@ After build your `schema.prisma` file all you need to run
 > pal g
 ```
 
+For more information about `pal g` command configurations  [click here](/cli/generator) 
+
 ## Output
 
 **Every model will have folder contain 11 files:**

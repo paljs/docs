@@ -26,7 +26,7 @@ Here is what we use in our [CLI](/cli/generator) to generate fiels
 
 Generate CRUD system for your Prisma GraphQL server
 
-`findOne` | `findMany` | `findCount` | `createOne` | `updateOne` | `'upsertOne` | `'deleteOne` | `'updateMany` | `'deleteMany`
+`findOne` | `findMany` | `findCount` | `aggregate` | `createOne` | `updateOne` | `upsertOne` | `deleteOne` | `updateMany` | `deleteMany`
 
 <br />
 
@@ -244,6 +244,7 @@ type QueriesAndMutations =
   | 'findOne'
   | 'findMany'
   | 'findCount'
+  | 'aggregate'
   | 'createOne'
   | 'updateOne'
   | 'upsertOne'

@@ -30,6 +30,7 @@ Auto generate CRUD system from your `schema.prisma` file.
   - `findOne`
   - `findMany`
   - `findCount`
+  - `aggregate`
   - `createOne`
   - `updateOne`
   - `upsertOne`
@@ -86,7 +87,7 @@ pal g
 ```
 
 - build prisma client
-- auto generate your crud system
+- auto generate your crud system for more information about `pal g` command configurations  [click here](/cli/generator) 
 
 #### Output For User Model
 
