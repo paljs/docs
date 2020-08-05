@@ -21,6 +21,7 @@ npm i @paljs/admin
 
 **CONTENT**
 
+- [Online Demo](https://prisma-admin.ahmedelywa.com/)
 - [Settings](#settings)
   - [Add graphql queries and mutation](#add-graphql-queries-and-mutation)
   - [Add Settings React Component](#add-settings-react-component)
