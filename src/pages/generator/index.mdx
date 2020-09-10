@@ -214,12 +214,16 @@ mutation updateManyUser($where: UserWhereInput, $data: UserUpdateManyMutationInp
 
 ### options type definition
 
-```ts
+```ts{3,5,7,9,11,13,15,17,19,21,23-25,27}
 interface Options {
   // add array of model to just generate them by `pal g`
   models?: string[];
   // models output path
   output: string;
+  // generate javaScript files
+  javaScript?: boolean;
+  // add custom prisma client path default one @prisma/client
+  prismaClientPath?: string;
   // add onDelete.cascade() function on deleteOne and deleteMany mutations default false
   onDelete?: boolean;
   // exclude fields from all models

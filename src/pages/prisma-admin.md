@@ -95,7 +95,7 @@ export default {
 };
 ```
 
-2- create typeDev file and add
+2- create typeDefs file and add
 
 ```ts
 import gql from 'graphql-tag';
@@ -201,7 +201,7 @@ Now you can add our component to any page like this.
 
 ```jsx{2,6}
 import React from 'react';
-import { Settings } from '@paljs/admin/dist/Settings';
+import { Settings } from '@paljs/admin';
 
 export default function SettingsPage() {
   // Settings component not have any props
@@ -310,7 +310,7 @@ Prisma Table has many props to can custom it like you want.
 
 To customize [`tableColumns`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx) and [`formInputs`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Form/Inputs.tsx) components you need to look to default components and have good react skills.
 
-```ts{3,5,7,10,13,16,19,22}
+```ts{3,5,7,10,13,16,18,20-23,25-29,31,33-36,39,42}
 interface ModelTableProps {
   // model name like in `schema.prisma` file
   model: string;
@@ -329,6 +329,24 @@ interface ModelTableProps {
   paginationOptions?: number;
   // add a checkbox for every record on the table you can use for custom cases like delete many
   onSelect?: (values: any[]) => void;
+  // this event call when you click cancel button in create record modal
+  onCancelCreate?: (options: {
+    model: string;
+    setCreateModal: (state: boolean) => void;
+  }) => void;
+  // this event call when you click save button in create record modal
+  onSaveCreate?: (options: {
+    model: string;
+    setCreateModal: (state: boolean) => void;
+    refetchTable: (options?: any) => void;
+  }) => void;
+  // this event call when you click cancel button in edit record page
+  onCancelUpdate?: (options: { model: string }) => void;
+  // this event call when you click save button in edit record page
+  onSaveUpdate?: (options: {
+    model: string;
+    refetchTable: (options?: any) => void;
+  }) => void;
   // it's function return object with react table columns https://github.com/tannerlinsley/react-table
   // default here: https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx
   tableColumns?: GetColumnsPartial;
@@ -342,10 +360,13 @@ type FormInputs = Record<'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Bo
 interface InputProps {
   field: SchemaField;
   value: any;
+  data: any;
   error: any;
   // import { FormContextValues } from 'react-hook-form';
   register: FormContextValues['register'];
   setValue: FormContextValues['setValue'];
+  getValues: FormContextValues['getValues'];
+  watch: FormContextValues['watch'];
   disabled: boolean;
 }
 
