@@ -62,9 +62,19 @@ const resolvers = {
 
 ### constructor
 
-Take two args:
+Take three args:
 
 - `info` : `GraphQLResolveInfo`
+- `defaultFields` : you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query
+
+```ts
+const defaultFields = {
+  User: { id: true, name: true },
+  Type: { id: true, descriptionRaw: true },
+  Post: { id: true, body: true },
+};
+```
+
 - `mergeObject` : any object to merge with client requested fields good to always returned fixed data like `id`.
 
 ### Methods
@@ -103,7 +113,7 @@ Here's how the nested type, filter and merge custom object would look like.
 const resolver = {
   Mutation: {
     login: (_parent, { email, password }, { prisma }: Context, info) => {
-      const select = new PrismaSelect(info).valueOf('user', 'User', { select: { id: true } });
+      const select = new PrismaSelect(info).valueOf('user', 'User', {}, { select: { id: true } });
       return {
         token: 'token',
         user: prisma.user.findOne({
@@ -165,13 +175,15 @@ type User {
 
 By adding `firstName` and `lastName` to PrismaSelect in the user field of Query, and `fullName` in User, the client can request fullName directly.
 
-```ts{6,17}
+```ts{8,19}
 import { PrismaSelect } from '@prisma-tools/select';
 
 const resolvers = {
   Query: {
     user(_parent, { where }, { prisma }, info) {
-      const select = new PrismaSelect(info, { select: { firstName: true, lastName: true } }).value;
+      // you can send { User: { firstName: true, lastName: true } } in second arg
+      // or you can send { select: { firstName: true, lastName: true } } in third arg
+      const select = new PrismaSelect(info, {}, { select: { firstName: true, lastName: true } }).value;
       return prisma.user.findOne({
         where,
         // this object must not have `fullName` because will throw error it's not in our db

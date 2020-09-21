@@ -32,6 +32,7 @@ npm i @paljs/admin
   - [Using with GatsbyJS](#using-with-gatsbyjs)
   - [Props](#props)
   - [Add pages to menu](#add-pages-to-menu)
+  - [How to add and update list values?](#how-to-add-and-update-list-values)
 
 </MdxCard>
 
@@ -310,7 +311,7 @@ Prisma Table has many props to can custom it like you want.
 
 To customize [`tableColumns`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx) and [`formInputs`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Form/Inputs.tsx) components you need to look to default components and have good react skills.
 
-```ts{3,5,7,10,13,16,18,20-23,25-29,31,33-36,39,42}
+```ts{3,5,7,10,13,16,18,20,22-26,28,30,33,36,39}
 interface ModelTableProps {
   // model name like in `schema.prisma` file
   model: string;
@@ -330,10 +331,7 @@ interface ModelTableProps {
   // add a checkbox for every record on the table you can use for custom cases like delete many
   onSelect?: (values: any[]) => void;
   // this event call when you click cancel button in create record modal
-  onCancelCreate?: (options: {
-    model: string;
-    setCreateModal: (state: boolean) => void;
-  }) => void;
+  onCancelCreate?: (options: { model: string; setCreateModal: (state: boolean) => void }) => void;
   // this event call when you click save button in create record modal
   onSaveCreate?: (options: {
     model: string;
@@ -343,10 +341,10 @@ interface ModelTableProps {
   // this event call when you click cancel button in edit record page
   onCancelUpdate?: (options: { model: string }) => void;
   // this event call when you click save button in edit record page
-  onSaveUpdate?: (options: {
-    model: string;
-    refetchTable: (options?: any) => void;
-  }) => void;
+  onSaveUpdate?: (options: { model: string; refetchTable: (options?: any) => void }) => void;
+  // In create and update form when you click save this function will call before take every value to apollo mutation
+  // Here we handle numbers list json values you can use it if you need to add any featuer
+  valueHandler?: (value: string, field?: SchemaField, create?: boolean) => any;
   // it's function return object with react table columns https://github.com/tannerlinsley/react-table
   // default here: https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx
   tableColumns?: GetColumnsPartial;
@@ -423,5 +421,39 @@ const items: MenuItemType[] = [
 ];
 export default items;
 ```
+
+### How to add and update list values?
+
+As we know we can use list values with prisma but how we work on this fields in admin forms
+
+**Example**
+
+```prisma
+
+model SchemaModel {
+  id            Int           @id @default(autoincrement())
+  string        String[]
+  integer       Int[]
+  boolean       Boolean[]
+  float         Float[]
+  json          Json[]
+  enums         FieldKind[]
+}
+
+enum FieldKind {
+  object
+  enum
+  scalar
+}
+```
+
+This fields inputs will ba as text type
+
+- `Int[]` => `1,2,3,4` converted to `[1,2,3,4]`
+- `Flout[]` => `1.2,2.3,3.5` converted to `[1.2,2.3,3.5 ]`
+- `String[]` => `first,second` converted to `['first','second']`
+- `Boolean[]` => `true,false` converted to `[true,false]`
+- `enum[]` => `object,enum `converted to `['object','enum']`
+- `Json[]` => `[{"first": 1},{"second": 2}] `we will pass value throught `JSON.parse()`
 
 </MdxCard>

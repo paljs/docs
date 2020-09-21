@@ -65,7 +65,7 @@ After build your `schema.prisma` file all you need to run
 > pal g
 ```
 
-For more information about `pal g` command configurations  [click here](/cli/generator) 
+For more information about `pal g` command configurations [click here](/cli/generator)
 
 ## Output
 
@@ -229,11 +229,11 @@ schema.extendType({
       type: 'AggregateUser',
       nullable: true,
       resolve(_parent, _args, { prisma, select }) {
-        return prisma.user.aggregate(select) as any
+        return prisma.user.aggregate(select) as any;
       },
-    })
+    });
   },
-})
+});
 ```
 
 </Tab>
@@ -536,9 +536,9 @@ export const UserAggregateQuery = queryField('aggregateUser', {
   type: 'AggregateUser',
   nullable: true,
   resolve(_parent, _args, { prisma, select }) {
-    return prisma.user.aggregate(select) as any
+    return prisma.user.aggregate(select) as any;
   },
-})
+});
 ```
 
 </Tab>
@@ -726,9 +726,12 @@ This plugin adds three parts
 
 ```ts
 paljs({
+  // include Prisma Admin schema query and mutations
   includeAdmin: true,
   // by default adminSchemaPath is `prisma/` you can change it
   adminSchemaPath: 'prisma/',
+  // take default fields object accepted by PrismaSelect class { [key: string]: { [key: string]: boolean } }
+  prismaSelectDefaultFields: { User: { id: true } },
 });
 ```
 
