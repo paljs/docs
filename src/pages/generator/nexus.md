@@ -737,6 +737,16 @@ paljs({
 
 ### nexus
 
+  [![Version](https://img.shields.io/npm/v/nexus-plugin-paljs.svg)](https://npmjs.org/package/nexus-plugin-paljs)
+  [![Downloads/week](https://img.shields.io/npm/dw/nexus-plugin-paljs.svg)](https://npmjs.org/package/nexus-plugin-paljs)
+  [![License](https://img.shields.io/npm/l/nexus-plugin-paljs.svg)](https://paljs.com/)
+
+```shell
+yarn add nexus-plugin-paljs
+or
+npm i nexus-plugin-paljs
+```
+
 `server.ts`
 
 ```ts
@@ -747,6 +757,16 @@ use(paljs());
 ```
 
 ### nexus schema
+
+  [![Version](https://img.shields.io/npm/v/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
+  [![Downloads/week](https://img.shields.io/npm/dw/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
+  [![License](https://img.shields.io/npm/l/@paljs/nexus.svg)](https://paljs.com/)
+  
+  ```shell
+  yarn add @paljs/nexus
+  or
+  npm i @paljs/nexus
+  ```
 
 ```ts
 import { makeSchema } from '@nexus/schema';
