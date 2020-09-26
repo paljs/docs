@@ -18,9 +18,11 @@ Prisma Select takes the `info: GraphQLResolveInfo` object in general graphql arg
 - [Api](#api)
   - [constructor](#constructor)
   - [value](#value)
+  - [value with filter](#valuewithfilter)
   - [valueOf](#valueof)
   - [mergeDeep](#mergedeep)
   - [filter](#filter)
+    - [map models](#map-models)
 - [Performance Example](#performance-example)
 - [nexus-plugin](/generator/nexus#add-paljs-plugin)
 
@@ -30,9 +32,9 @@ Prisma Select takes the `info: GraphQLResolveInfo` object in general graphql arg
 
 ## Install
 
-  [![Version](https://img.shields.io/npm/v/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
-  [![Downloads/week](https://img.shields.io/npm/dw/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
-  [![License](https://img.shields.io/npm/l/@paljs/plugins.svg)](https://paljs.com/)
+[![Version](https://img.shields.io/npm/v/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
+[![Downloads/week](https://img.shields.io/npm/dw/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
+[![License](https://img.shields.io/npm/l/@paljs/plugins.svg)](https://paljs.com/)
 
 ```shell
 npm i @paljs/plugins
@@ -87,6 +89,24 @@ const defaultFields = {
 
 Return your converted object.
 
+**Example**
+
+```ts
+const select = new PrismaSelect(info).value;
+```
+
+#### valueWithFilter
+
+function take 1 arg:
+
+- `modelName`: Your schema model name to filter returned object and remove any field, not in your schema model
+
+**Example**
+
+```ts
+const select = new PrismaSelect(info).valueWithFilter('User');
+```
+
 #### valueOf
 
 function take 3 args:
@@ -111,7 +131,7 @@ type Mutation {
 }
 ```
 
-Here's how the nested type, filter and merge custom object would look like.
+Here's how the nested type, filter, and to merge custom object would look like.
 
 ```ts
 const resolver = {
@@ -132,11 +152,11 @@ const resolver = {
 
 ### mergeDeep
 
-This is a static method which you can use to merge our converted object with your custom object.
+This is a static method that you can use to merge our converted object with your custom object.
 
-Also you can use it to merge any object with another object.
+Also, you can use it to merge any object with another object.
 
-You can use if you pass select object inside context.
+You can use it if you pass select objects inside the context.
 
 ```js{4}
 const resolvers = {
@@ -154,7 +174,7 @@ const resolvers = {
 
 ### filter
 
-Prisma Select can also be used as a private method to filter your computed fields that are not included originally in your prisma schema. This feature gives you the ability to customize additional fields in schema.
+Prisma Select can also be used as a private method to filter your computed fields not included originally in your prisma schema. This feature gives you the ability to customize additional fields in the schema.
 
 **_Example_**
 
@@ -202,6 +222,43 @@ const resolvers = {
     },
   },
 };
+```
+
+#### Map models
+
+If You need to customize your graphql type and use any name instead of using a prisma model name, you can do this by adding a comment in your schema.prisma file before the model name like this example:
+
+```prisma
+/// @PrismaSelect.map([Account, Profile])
+model User {
+  id        Int      @default(autoincrement()) @id
+  firstName      String
+  lastName      String
+}
+```
+
+Now you can create your GrqphQL types with name you provided and you will get filter by the model `User`
+
+```graphql
+type User {
+  id: Int
+  firstName: String
+  lastName: String
+}
+
+type Account {
+  id: Int
+  firstName: String
+  lastName: String
+  fullName: String
+}
+
+type Profile {
+  id: Int
+  firstName: String
+  lastName: String
+  anyfield: String
+}
 ```
 
 </MdxCard>
