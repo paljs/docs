@@ -40,6 +40,10 @@ To install `@paljs/cli` on your machine, make sure to have the following tools i
 
 To install PalJS CLI globally on your machine, please run the commands below.
 
+[![Version](https://img.shields.io/npm/v/@paljs/cli.svg)](https://npmjs.org/package/@paljs/cli)
+[![Downloads/week](https://img.shields.io/npm/dw/@paljs/cli.svg)](https://npmjs.org/package/@paljs/cli)
+[![License](https://img.shields.io/npm/l/@paljs/cli.svg)](https://paljs.com/)
+
 ```shell
 yarn global add @paljs/cli
 //or
