@@ -5,11 +5,12 @@ import MdxCard from 'src/components/MdxCard';
 
 <MdxCard>
 
+
 ## Generator Classes
 
-  [![Version](https://img.shields.io/npm/v/@paljs/generator.svg)](https://npmjs.org/package/@paljs/generator)
-  [![Downloads/week](https://img.shields.io/npm/dw/@paljs/generator.svg)](https://npmjs.org/package/@paljs/generator)
-  [![License](https://img.shields.io/npm/l/@paljs/generator.svg)](https://paljs.com/)
+[![Version](https://img.shields.io/npm/v/@paljs/generator.svg)](https://npmjs.org/package/@paljs/generator)
+[![Downloads/week](https://img.shields.io/npm/dw/@paljs/generator.svg)](https://npmjs.org/package/@paljs/generator)
+[![License](https://img.shields.io/npm/l/@paljs/generator.svg)](https://paljs.com/)
 
 Here is what we use in our [CLI](/cli/generator) to generate fiels
 
@@ -24,7 +25,9 @@ Here is what we use in our [CLI](/cli/generator) to generate fiels
 
 </MdxCard>
 
+
 <MdxCard>
+
 
 ## Backend Generator
 
@@ -36,7 +39,7 @@ Generate CRUD system for your Prisma GraphQL server
 
 | ARGUMENTS | Type                                                                              |
 | --------- | --------------------------------------------------------------------------------- |
-| generator | one of `nexus` , `nexus-schema` , `sdl` , `graphql-modules`                       |
+| generator | one of `nexus` , `sdl` , `graphql-modules`                                        |
 | options   | You can add [Options](#options-type-definition) object to customize the generator |
 
 <br />
@@ -51,14 +54,15 @@ new Generator('nexus', {}).run();
 
 Generated code depending on the type of generator
 
-- [nexus](/generator/nexus#nexus-generator-output-code)
-- [nexus-schema](/generator/nexus#nexus-schema-generator-output-code)
+- [nexus](/generator/nexus#output)
 - [sdl](/generator/sdl)
 - [graphql-modules](/generator/graphql-modules)
 
 </MdxCard>
 
+
 <MdxCard>
+
 
 ## UIGenerator
 
@@ -214,7 +218,9 @@ mutation updateManyUser($where: UserWhereInput, $data: UserUpdateManyMutationInp
 
 </MdxCard>
 
+
 <MdxCard>
+
 
 ### options type definition
 
@@ -262,3 +268,4 @@ type QueriesAndMutations =
 ```
 
 </MdxCard>
+

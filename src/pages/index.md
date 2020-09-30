@@ -23,7 +23,6 @@ Pal.js stands for `I am your friend!`. It is a set of tools to help you bootstra
 - `full-stack-nextjs` - A full stack admin framework using nexus and next.js.
 - `full-stack-gatsbyjs` - A full stack admin framework using nexus and gatsby.
 - `apollo-nexus-schema` - A server side app that uses apollo-sever and nexus with pal.js auto generations.
-- `nexus` - A server side app that uses nexus framework with pal.js auto generations.
 - `apollo-sdl-first` - A server side app that uses sdl-first approach and apollo server with pal.js auto generations.
 - `graphql-modules` - A server side app that uses apollo server and graphql-modules toolsets with pal.js auto generations.
 
@@ -67,7 +66,6 @@ npm install -g @paljs/cli
 ❯ full-stack-nextjs
   full-stack-gatsbyjs
   apollo-nexus-schema
-  nexus
   apollo-sdl-first
   graphql-modules
 

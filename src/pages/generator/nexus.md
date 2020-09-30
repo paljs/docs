@@ -13,8 +13,7 @@ Auto generate CRUD system from your `schema.prisma` file.
 **CONTENT**
 
 - [Example Usage](#example-usage)
-- [nexus output](#nexus-generator-output-code)
-- [nexus schema output](#nexus-schema-generator-output-code)
+- [Output](#output)
 - [Add paljs plugin](#add-paljs-plugin)
 
 </MdxCard>
@@ -98,332 +97,7 @@ For more information about `pal g` command configurations [click here](/cli/gene
   - `Post/queries/aggregate.ts`
   - `Post/type.ts`
 
-</MdxCard>
-
-<MdxCard>
-
-## `nexus` generator output code
-
-To understand this code structure please look to [Nexus Docs](https://www.nexusjs.org/#/guides/schema?id=schema)
-
-`type.ts`
-
-```ts
-import { schema } from 'nexus';
-
-schema.objectType({
-  name: 'User',
-  definition(t) {
-    t.int('id', { nullable: false });
-    t.string('email', { nullable: false });
-    t.string('name', { nullable: true });
-    t.field('posts', {
-      nullable: false,
-      list: [true],
-      type: 'Post',
-      args: {
-        where: 'PostWhereInput',
-        orderBy: 'PostOrderByInput',
-        cursor: 'PostWhereUniqueInput',
-        take: 'Int',
-        skip: 'Int',
-      },
-      resolve(parent: any) {
-        return parent['posts'];
-      },
-    });
-  },
-});
-```
-
-`queries`
-
-<Tabs>
-<Tab title="findOne.ts">
-
-```ts
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.field('findOneUser', {
-      type: 'User',
-      nullable: true,
-      args: {
-        where: schema.arg({
-          type: 'UserWhereUniqueInput',
-          nullable: false,
-        }),
-      },
-      resolve(_parent, { where }, { prisma, select }) {
-        return prisma.user.findOne({
-          where,
-          ...select,
-        });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="findMany.ts">
-
-```ts
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.field('findManyUser', {
-      type: 'User',
-      nullable: true,
-      list: true,
-      args: {
-        where: 'UserWhereInput',
-        orderBy: 'UserOrderByInput',
-        cursor: 'UserWhereUniqueInput',
-        skip: 'Int',
-        take: 'Int',
-      },
-      resolve(_parent, args, { prisma, select }) {
-        return prisma.user.findMany({
-          ...args,
-          ...select,
-        });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="findCount.ts">
-
-```ts
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.field('findManyUserCount', {
-      type: 'Int',
-      args: {
-        where: 'UserWhereInput',
-        orderBy: 'UserOrderByInput',
-        cursor: 'UserWhereUniqueInput',
-        skip: 'Int',
-        take: 'Int',
-      },
-      resolve(_parent, args, { prisma }) {
-        return prisma.user.count(args);
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="aggregate.ts">
-
-```ts
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.field('aggregateUser', {
-      type: 'AggregateUser',
-      nullable: true,
-      resolve(_parent, _args, { prisma, select }) {
-        return prisma.user.aggregate(select) as any;
-      },
-    });
-  },
-});
-```
-
-</Tab>
-</Tabs>
-
-`mutations`
-
-<Tabs>
-<Tab title="createOne.ts">
-
-```ts
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field('createOneUser', {
-      type: 'User',
-      nullable: false,
-      args: {
-        data: schema.arg({
-          type: 'UserCreateInput',
-          nullable: false,
-        }),
-      },
-      resolve(_parent, { data }, { prisma, select }) {
-        return prisma.user.create({
-          data,
-          ...select,
-        });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="deleteOne.ts">
-
-```ts
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field('deleteOneUser', {
-      type: 'User',
-      nullable: true,
-      args: {
-        where: schema.arg({
-          type: 'UserWhereUniqueInput',
-          nullable: false,
-        }),
-      },
-      resolve: async (_parent, { where }, { prisma, select }) => {
-        await prisma.onDelete({ model: 'User', where });
-        return prisma.user.delete({
-          where,
-          ...select,
-        });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="updateOne.ts">
-
-```ts
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field('updateOneUser', {
-      type: 'User',
-      nullable: false,
-      args: {
-        where: schema.arg({
-          type: 'UserWhereUniqueInput',
-          nullable: false,
-        }),
-        data: schema.arg({
-          type: 'UserUpdateInput',
-          nullable: false,
-        }),
-      },
-      resolve(_parent, { data, where }, { prisma, select }) {
-        return prisma.user.update({
-          where,
-          data,
-          ...select,
-        });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="upsertOne.ts">
-
-```ts
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field('upsertOneUser', {
-      type: 'User',
-      nullable: false,
-      args: {
-        where: schema.arg({
-          type: 'UserWhereUniqueInput',
-          nullable: false,
-        }),
-        create: schema.arg({
-          type: 'UserCreateInput',
-          nullable: false,
-        }),
-        update: schema.arg({
-          type: 'UserUpdateInput',
-          nullable: false,
-        }),
-      },
-      resolve(_parent, args, { prisma, select }) {
-        return prisma.user.upsert({
-          ...args,
-          ...select,
-        });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="deleteMany.ts">
-
-```ts
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field('deleteManyUser', {
-      type: 'BatchPayload',
-      args: {
-        where: schema.arg({
-          type: 'UserWhereInput',
-          nullable: true,
-        }),
-      },
-      resolve: async (_parent, { where }, { prisma }) => {
-        await prisma.onDelete({ model: 'User', where });
-        return prisma.user.deleteMany({ where });
-      },
-    });
-  },
-});
-```
-
-</Tab>
-<Tab title="updateMany.ts">
-
-```ts
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.field('updateManyUser', {
-      type: 'BatchPayload',
-      args: {
-        where: schema.arg({
-          type: 'UserWhereInput',
-          nullable: true,
-        }),
-        data: schema.arg({
-          type: 'UserUpdateManyMutationInput',
-          nullable: false,
-        }),
-      },
-      resolve(_parent, args, { prisma }) {
-        return prisma.user.updateMany(args);
-      },
-    });
-  },
-});
-```
-
-</Tab>
-</Tabs>
-
-</MdxCard>
-
-<MdxCard>
-
-## `nexus-schema` generator output code
-
-To understand this code structure please look to [Nexus schema Docs](https://www.nexusjs.org/#/components/schema/api/index)
+To understand this code structure please look to [Nexus Docs](https://www.nexusjs.org)
 
 `type.ts`
 
@@ -735,38 +409,17 @@ paljs({
 });
 ```
 
-### nexus
+### Install
 
-  [![Version](https://img.shields.io/npm/v/nexus-plugin-paljs.svg)](https://npmjs.org/package/nexus-plugin-paljs)
-  [![Downloads/week](https://img.shields.io/npm/dw/nexus-plugin-paljs.svg)](https://npmjs.org/package/nexus-plugin-paljs)
-  [![License](https://img.shields.io/npm/l/nexus-plugin-paljs.svg)](https://paljs.com/)
+[![Version](https://img.shields.io/npm/v/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
+[![Downloads/week](https://img.shields.io/npm/dw/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
+[![License](https://img.shields.io/npm/l/@paljs/nexus.svg)](https://paljs.com/)
 
 ```shell
-yarn add nexus-plugin-paljs
+yarn add @paljs/nexus
 or
-npm i nexus-plugin-paljs
+npm i @paljs/nexus
 ```
-
-`server.ts`
-
-```ts
-import { use } from 'nexus';
-import { paljs } from 'nexus-plugin-paljs';
-
-use(paljs());
-```
-
-### nexus schema
-
-  [![Version](https://img.shields.io/npm/v/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
-  [![Downloads/week](https://img.shields.io/npm/dw/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
-  [![License](https://img.shields.io/npm/l/@paljs/nexus.svg)](https://paljs.com/)
-  
-  ```shell
-  yarn add @paljs/nexus
-  or
-  npm i @paljs/nexus
-  ```
 
 ```ts
 import { makeSchema } from '@nexus/schema';
@@ -799,14 +452,14 @@ export const schema = makeSchema({
 #### Use
 
 ```ts
-schema.extendType({
+extendType({
   type: 'Query',
   definition(t) {
     t.field('findOneUser', {
       type: 'User',
       nullable: true,
       args: {
-        where: schema.arg({
+        where: arg({
           type: 'UserWhereUniqueInput',
           nullable: false,
         }),

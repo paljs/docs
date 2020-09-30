@@ -16,11 +16,9 @@ This is Cli tool to Create CRUD system for [Nexus Prisma plugin](https://www.nex
 - [Command options for `cnt`](#command-options-for-cnt)
 - [Nexus Example](#nexus-example)
   - [OutPut](#output)
-- [Use `@nexus/schema` version](#use-nexusschema-version)
-  - [OutPut](#output-1)
 - [Create TypeScript types](#create-typescript-types)
   - [Example](#example)
-  - [OutPut](#output-2)
+  - [OutPut](#output-1)
 
 </MdxCard>
 
@@ -43,7 +41,6 @@ npm i create-nexus-type --save-dev
 ```
   --schema To add schema file path if you not run command in root of project
   --outDir Created files output dir default src/types
-  -s       add this option to use @nexus/schema package
   -mq      add this option to create Queries and Mutations for models
   -m       add this option to create Mutations
   -q       add this option to create Queries
@@ -92,100 +89,8 @@ npx cnt --mq -f -o
 
 ### OutPut
 
-<Tabs>
-<Tab title="User.ts">
-
 ```ts
-import { schema } from 'nexus';
-
-schema.objectType({
-  name: 'User',
-  definition(t) {
-    t.model.id();
-    t.model.email();
-    t.model.birthDate();
-    t.model.role();
-    t.model.posts();
-  },
-});
-
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.crud.user();
-    t.crud.users({ filtering: true, ordering: true });
-  },
-});
-
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.crud.createOneUser();
-    t.crud.updateOneUser();
-    t.crud.upsertOneUser();
-    t.crud.deleteOneUser();
-
-    t.crud.updateManyUser();
-    t.crud.deleteManyUser();
-  },
-});
-```
-
-</Tab>
-<Tab title="Post.ts">
-
-```ts
-import { schema } from 'nexus';
-
-schema.objectType({
-  name: 'Post',
-  definition(t) {
-    t.model.id();
-    t.model.author();
-  },
-});
-
-schema.extendType({
-  type: 'Query',
-  definition(t) {
-    t.crud.post();
-    t.crud.posts({ filtering: true, ordering: true });
-  },
-});
-
-schema.extendType({
-  type: 'Mutation',
-  definition(t) {
-    t.crud.createOnePost();
-    t.crud.updateOnePost();
-    t.crud.upsertOnePost();
-    t.crud.deleteOnePost();
-
-    t.crud.updateManyPost();
-    t.crud.deleteManyPost();
-  },
-});
-```
-
-</Tab>
-</Tabs>
-
-</MdxCard>
-
-<MdxCard>
-
-## Use `@nexus/schema` version
-
-run
-
-```shell
-npx cnt -s --mq -f -o
-```
-
-### OutPut
-
-```ts
-import { objectType, extendType } from 'nexus';
+import { objectType, extendType } from '@nexus/schema';
 
 export const User = objectType({
   name: 'User',
