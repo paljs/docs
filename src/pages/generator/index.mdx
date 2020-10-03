@@ -37,17 +37,17 @@ Generate CRUD system for your Prisma GraphQL server
 
 <br />
 
-| ARGUMENTS | Type                                                                              |
-| --------- | --------------------------------------------------------------------------------- |
-| generator | one of `nexus` , `sdl` , `graphql-modules`                                        |
-| options   | You can add [Options](#options-type-definition) object to customize the generator |
+| ARGUMENTS | Type                                                                                |
+| --------- | ----------------------------------------------------------------------------------- |
+| generator | { name: one of `nexus` , `sdl` , `graphql-modules`, schemaPath: prisma schema path }|
+| options   | You can add [Options](#options-type-definition) object to customize the generator   |
 
 <br />
 
 ```ts
 import { Generator } from '@paljs/generator';
 
-new Generator('nexus', {}).run();
+new Generator({name: 'nexus', schemaPath: './prisma/schema.prisma'}, {}).run();
 ```
 
 ## output
@@ -77,7 +77,7 @@ import { UIGenerator } from '@paljs/generator';
 const uiGenerator = new UIGenerator('prisma/schema.prisma');
 
 // accept one arg for output of generated settings schema
-uiGenerator.buildSettingsSchema('prisma/');
+uiGenerator.buildSettingsSchema('adminSettings.json');
 
 // accept `AdminPagesOptions` object
 uiGenerator.generateAdminPages({});
@@ -232,8 +232,6 @@ interface Options {
   output: string;
   // generate javaScript files
   javaScript?: boolean;
-  // add custom prisma client path default one @prisma/client
-  prismaClientPath?: string;
   // add onDelete.cascade() function on deleteOne and deleteMany mutations default false
   onDelete?: boolean;
   // exclude fields from all models
