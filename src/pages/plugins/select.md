@@ -2,7 +2,7 @@ import SEO from 'src/components/SEO';
 import SelectExample from 'src/components/SelectExample';
 import MdxCard from 'src/components/MdxCard';
 
-<SEO title="Select Convert" />
+<SEO title="Prisma Select Convert" description="Prisma Select takes the info: GraphQLResolveInfo object in general graphql arguments (parent, args, context, info) to select object accepted by prisma client. The approach allows a better performance since you will only be using one resolver to retrieve all your request. By doing so, it also eliminates the N + 1 issue" />
 
 <MdxCard>
 

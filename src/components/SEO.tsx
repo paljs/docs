@@ -78,7 +78,23 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
 };
 
 SEO.defaultProps = {
-  keywords: ['Pal.js', 'application', 'react'],
+  keywords: [
+    'Pal.js',
+    'application',
+    'react',
+    'prisma',
+    'nexus',
+    'graphql',
+    'CRUD',
+    'N+1',
+    'components',
+    'admin',
+    'nexus-prisma',
+    'nexus-plugin-prisma',
+    'styled-components',
+    'grid-system',
+    'free react admin',
+  ],
 };
 
 interface SEOProps {

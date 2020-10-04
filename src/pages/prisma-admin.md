@@ -1,7 +1,7 @@
 import SEO from 'src/components/SEO';
 import MdxCard from 'src/components/MdxCard';
 
-<SEO title="Prisma admin table" />
+<SEO title="Prisma admin table" description="Auto Generate your React Admin panel for Prisma projects In minutes" />
 
 <MdxCard>
 

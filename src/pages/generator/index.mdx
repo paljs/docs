@@ -37,17 +37,17 @@ Generate CRUD system for your Prisma GraphQL server
 
 <br />
 
-| ARGUMENTS | Type                                                                                |
-| --------- | ----------------------------------------------------------------------------------- |
-| generator | { name: one of `nexus` , `sdl` , `graphql-modules`, schemaPath: prisma schema path }|
-| options   | You can add [Options](#options-type-definition) object to customize the generator   |
+| ARGUMENTS | Type                                                                                 |
+| --------- | ------------------------------------------------------------------------------------ |
+| generator | { name: one of `nexus` , `sdl` , `graphql-modules`, schemaPath: prisma schema path } |
+| options   | You can add [Options](#options-type-definition) object to customize the generator    |
 
 <br />
 
 ```ts
 import { Generator } from '@paljs/generator';
 
-new Generator({name: 'nexus', schemaPath: './prisma/schema.prisma'}, {}).run();
+new Generator({ name: 'nexus', schemaPath: './prisma/schema.prisma' }, {}).run();
 ```
 
 ## output
@@ -224,7 +224,7 @@ mutation updateManyUser($where: UserWhereInput, $data: UserUpdateManyMutationInp
 
 ### options type definition
 
-```ts{3,5,7,9,11,13,15,17,19,21,23-25,27}
+```ts{3,5,7,9,11,13,15,17,19,21-23,25}
 interface Options {
   // add array of model to just generate them by `pal g`
   models?: string[];

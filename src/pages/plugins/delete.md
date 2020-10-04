@@ -1,7 +1,9 @@
 import SEO from 'src/components/SEO';
 import MdxCard from 'src/components/MdxCard';
 
-<SEO title="On Delete" />
+<SEO title="On Delete" description="Prisma Delete is a plugin built for making delete operations in prisma Prisma. It's a feature that utilizes the
+comment's area in prisma.schema to annotate delete side effects on relations. This is a necessary feature as the official
+Prisma Migrate Cli has not released a standardized way to resolve Relation onDelete." />
 
 <MdxCard>
 
@@ -27,10 +29,10 @@ Prisma Migrate Cli has not released a standardized way to resolve `Relation onDe
 
 ## Install
 
-  [![Version](https://img.shields.io/npm/v/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
-  [![Downloads/week](https://img.shields.io/npm/dw/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
-  [![License](https://img.shields.io/npm/l/@paljs/plugins.svg)](https://paljs.com/)
-  
+[![Version](https://img.shields.io/npm/v/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
+[![Downloads/week](https://img.shields.io/npm/dw/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
+[![License](https://img.shields.io/npm/l/@paljs/plugins.svg)](https://paljs.com/)
+
 ```shell
 npm i @paljs/plugins
 ```
@@ -209,7 +211,7 @@ from Pal.js's server models.
 ```ts
 resolve: async (_, { where }, { prisma }) => {
   await prisma.onDelete({ model: 'User', where, deleteParent: true });
-}
+};
 ```
 
 </MdxCard>
