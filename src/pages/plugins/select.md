@@ -33,7 +33,7 @@ Prisma Select takes the `info: GraphQLResolveInfo` object in general graphql arg
 ## Install
 
 [![Version](https://img.shields.io/npm/v/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
-[![Downloads/week](https://img.shields.io/npm/dw/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
+[![Downloads/total](https://img.shields.io/npm/dt/@paljs/plugins.svg)](https://npmjs.org/package/@paljs/plugins)
 [![License](https://img.shields.io/npm/l/@paljs/plugins.svg)](https://paljs.com/)
 
 ```shell

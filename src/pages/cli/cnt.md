@@ -27,7 +27,7 @@ This is Cli tool to Create CRUD system for [Nexus Prisma plugin](https://www.nex
 ## Install
 
 [![Version](https://img.shields.io/npm/v/create-nexus-type.svg)](https://npmjs.org/package/create-nexus-type)
-[![Downloads/week](https://img.shields.io/npm/dw/create-nexus-type.svg)](https://npmjs.org/package/create-nexus-type)
+[![Downloads/total](https://img.shields.io/npm/dt/create-nexus-type.svg)](https://npmjs.org/package/create-nexus-type)
 [![License](https://img.shields.io/npm/l/create-nexus-type.svg)](https://paljs.com/)
 
 ```shell
