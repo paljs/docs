@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const remarkSlug = require('remark-slug');
 
 module.exports = {
   siteMetadata: {
-    title: 'Pal.js',
+    title: 'Pal.js Start your NodeJs, Prisma, GraphQL, React project',
     description: 'I am your friend in building NodeJs, Prisma, GraphQL, React project',
     author: 'Ahmed Elywa',
   },

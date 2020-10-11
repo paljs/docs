@@ -1,15 +1,15 @@
 import MdxCard from 'src/components/MdxCard';
 import SEO from 'src/components/SEO';
 
-<SEO title="Install Based on Starter Kit" />
+<SEO title="Start new Next.Js project" />
 
 <MdxCard>
 
-# Install Based on Starter Kit
+# Start new Next.Js project
 
-Starting Pal.js UI from [gatsby-admin-template](https://github.com/paljs/gatsby-admin-template) starter kit is the easiest way to run your first Pal.js UI application.
+Starting Pal.js UI from [nextjs-admin-template](https://github.com/paljs/nextjs-admin-template) starter kit is the easiest way to run your first Pal.js UI application.
 
-Please note, that **gatsby-admin-template** is just a frontend application. Backend integration can be done relatively simple, but you should be aware that all the data is mocked using JavaScript objects.
+Please note, that **nextjs-admin-template** is just a frontend application. Backend integration can be done relatively simple, but you should be aware that all the data is mocked using JavaScript objects.
 If you want the data to be dynamic, you should consider developing a backend integration by your own.
 The Pal.js UI team doesn't consider providing generic integration layer as a part of this project because every backend API has a different structure in terms of data format and URLs.
 
@@ -25,7 +25,7 @@ To install gatsby-admin-template on your machine you need to have the following 
 <div class="note note-warning">
   <div class="note-title">Warning!</div>
   <div class="note-body">
-    Please note that <strong>it is not possible</strong> to build gatsby-admin-template
+    Please note that <strong>it is not possible</strong> to build nextjs-admin-template
     <strong> without these tools</strong> and it will not be possible because of
     the way how React is built.
   </div>
@@ -33,16 +33,16 @@ To install gatsby-admin-template on your machine you need to have the following 
 
 ## Download the code
 
-When you completed tools setup, you need to download the code of **gatsby-admin-template** application. The easiest way to do that is to clone GitHub repository:
+When you completed tools setup, you need to download the code of **nextjs-admin-template** application. The easiest way to do that is to clone GitHub repository:
 
 ```bash
-git clone https://github.com/paljs/gatsby-admin-template.git
+git clone https://github.com/paljs/nextjs-admin-template.git
 ```
 
 After the clone completed, you need to install npm modules:
 
 ```bash
-cd gatsby-admin-template && npm i || yarn
+cd nextjs-admin-template && npm i || yarn
 ```
 
 <div class="note note-warning">
@@ -61,7 +61,7 @@ To run a local copy in development mode, execute:
 npm run dev || yarn dev
 ```
 
-Go to <http://localhost:8000> in your browser.
+Go to <http://localhost:3000> in your browser.
 
 ## Production bundle
 
@@ -71,7 +71,7 @@ To create a bundle in production mode, execute:
 npm run build || yarn build
 ```
 
-This will clear up your `public` folder (where release files located) and generate a release build.
-Now you can copy the sources from the `public` folder and use it with any backend frameworks
+This will clear up your `.next` folder (where release files located) and generate a release build.
+Now you can copy the sources from the `.next` folder and use it with any backend frameworks
 
 </MdxCard>

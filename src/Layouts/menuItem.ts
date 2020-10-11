@@ -81,12 +81,12 @@ const items: MenuItemType[] = [
     title: 'Guides',
     children: [
       {
-        title: 'Install based on starter kit',
-        link: { to: '/ui/guides/install-based-on-starter-kit' },
+        title: 'Start new Next.js project',
+        link: { to: '/ui/guides/start-from-nextjs-template' },
       },
       {
-        title: 'Start new gatsby project',
-        link: { to: '/ui/guides/start-new-gatsby-project' },
+        title: 'Start new Gatsby.Js project',
+        link: { to: '/ui/guides/start-from-gatsby-template' },
       },
       {
         title: 'Install Eva Icons',
