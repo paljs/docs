@@ -50,7 +50,11 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
               },
               {
                 name: 'twitter:creator',
-                content: data.site.siteMetadata.author,
+                content: '@AhmedElywh',
+              },
+              {
+                name: 'twitter:site',
+                content: '@pal4js',
               },
               {
                 name: 'twitter:title',
@@ -59,6 +63,10 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
               {
                 name: 'twitter:description',
                 content: metaDescription,
+              },
+              {
+                name: 'twitter:image',
+                content: 'https://paljs.com/header.png',
               },
             ]
               .concat(
