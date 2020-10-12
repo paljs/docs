@@ -5,6 +5,7 @@ import { LayoutHeader } from '@paljs/ui/Layout';
 import { EvaIcon } from '@paljs/ui/Icon';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { Actions } from '@paljs/ui/Actions';
+import { useLocation } from '@reach/router';
 
 const SidebarIcon = styled(Actions)`
   display: none;
@@ -34,7 +35,11 @@ const HeaderStyle = styled.div`
   .left {
     display: flex;
     align-items: center;
-    width: 100%;
+    .github {
+      color: white;
+      font-size: 18px;
+      margin-right: 5px;
+    }
   }
   ${breakpointDown('sm')`
     .right{
@@ -59,6 +64,7 @@ const Label = styled.span`
   align-items: center;
 `;
 const Header: React.FC<HeaderProps> = (props) => {
+  const location = useLocation();
   const themeOptions = [
     {
       value: 'default',
@@ -98,6 +104,7 @@ const Header: React.FC<HeaderProps> = (props) => {
       selected: true,
     },
   ];
+  const repoName = location.pathname.startsWith('/ui') ? 'ui' : 'prisma-tools';
   return (
     <LayoutHeader fixed>
       <HeaderStyle>
@@ -143,8 +150,12 @@ const Header: React.FC<HeaderProps> = (props) => {
           className="right"
           actions={[
             {
-              icon: 'github',
-              url: { href: 'https://github.com/paljs', target: '_blank' },
+              content: (
+                <a className="left" href={`https://github.com/paljs/${repoName}`} target="_blank" rel="noreferrer">
+                  <span className="github">Support us in GitHub with stars</span>
+                  <img src={`https://badgen.net/github/stars/paljs/${repoName}`} />
+                </a>
+              ),
             },
             {
               icon: 'twitter',
