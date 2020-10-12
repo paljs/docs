@@ -152,7 +152,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             {
               content: (
                 <a className="left" href={`https://github.com/paljs/${repoName}`} target="_blank" rel="noreferrer">
-                  <span className="github">Support us in GitHub with stars</span>
+                  <span className="github">Support us in GitHub</span>
                   <img src={`https://badgen.net/github/stars/paljs/${repoName}`} />
                 </a>
               ),
