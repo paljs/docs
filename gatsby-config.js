@@ -7,6 +7,7 @@ module.exports = {
     title: 'Pal.js Start your NodeJs, Prisma, GraphQL, React project',
     description: 'I am your friend in building NodeJs, Prisma, GraphQL, React project',
     author: 'Ahmed Elywa',
+    siteUrl: `https://paljs.com`,
   },
   plugins: [
     {
@@ -15,6 +16,8 @@ module.exports = {
         component: require.resolve(`./src/Layouts/index.tsx`),
       },
     },
+    'gatsby-plugin-robots-txt',
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-typescript',
     'gatsby-plugin-root-import',
