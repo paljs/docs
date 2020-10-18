@@ -6,6 +6,7 @@ import { Tabs, Tab } from '@paljs/ui';
 
 <MdxCard>
 
+
 ## pal schema
 
 **Alias: ** `pal s`
@@ -18,21 +19,21 @@ import { Tabs, Tab } from '@paljs/ui';
 | ---------- | -------------------------------------------------------------------------------------------------- |
 | json       | Convert your `schema.prisma` file into `JavaScript`, `TypeScript` and `Json` files                 |
 | camel-case | Convert your `schema.prisma` file from `Snake case` eg `first_name` to `Camel case` eg `firstName` |
-
-## Schema Class
-
-Convert your current `schema.prisma` file in runtime with `ConvertSchemaToObject` class
+| typescript | Convert your `schema.prisma` file into `TypeScript` definitions                                    |
 
 **CONTENT**
 
 - [Convert to file](#convert-to-file)
 - [Convert to Camel case](#convert-to-camel-case)
+- [Convert to TypeScript definitions](#convert-to-typescript-definitions)
 - [ConvertSchemaToObject](#convertschematoobject)
 - [Schema Type](#schema-type)
 
 </MdxCard>
 
+
 <MdxCard>
+
 
 ## Convert to file
 
@@ -58,6 +59,7 @@ pal schema json
 <Tabs>
 <Tab title="schema.prisma">
 
+
 ```prisma
 model User {
   id        Int       @default(autoincrement()) @id
@@ -78,6 +80,7 @@ model User {
 
 </Tab>
 <Tab title="schema.ts">
+
 
 ```ts
 import { SchemaObject } from '@paljs/schema';
@@ -197,6 +200,7 @@ export const schema: SchemaObject = {
 </Tab>
 <Tab title="schema.js">
 
+
 ```js
 export default {
   models: [
@@ -312,6 +316,7 @@ export default {
 
 </Tab>
 <Tab title="schema.json">
+
 
 ```json
 {
@@ -429,8 +434,10 @@ export default {
 </Tab>
 </Tabs>
 
+
 </MdxCard>
 <MdxCard>
+
 
 ## Convert to Camel case
 
@@ -440,9 +447,9 @@ Convert your `schema.prisma` file from `Snake case` to `Camel case`.
 
 **options**
 
-| char | flag        | description                                           |
-| ---- | ----------- | ----------------------------------------------------- |
-| -p   | --path=path | [default: prisma/] Add your schema.prisma file folder |
+| char | flag            | description                                                      |
+| ---- | --------------- | ---------------------------------------------------------------- |
+| -s   | --schema=schema | [default: prisma/schema.prisma] Add your schema.prisma file path |
 
 **Run**
 
@@ -454,6 +461,7 @@ pal schema camel-case
 
 <Tabs>
 <Tab title="Snake case">
+
 
 ```prisma
 datasource db {
@@ -514,6 +522,7 @@ model Group {
 
 </Tab>
 <Tab title="Camel case">
+
 
 ```prisma
 datasource db {
@@ -576,8 +585,89 @@ model Group {
 </Tab>
 </Tabs>
 
+
 </MdxCard>
 <MdxCard>
+
+
+## Convert to TypeScript definitions
+
+Convert your `schema.prisma` file into `TypeScript` definitions.
+
+**options**
+
+| char | flag                      | description                                                      |
+| ---- | ------------------------- | ---------------------------------------------------------------- |
+| -s   | --schema=schema           | [default: prisma/schema.prisma] Add your schema.prisma file path |
+| -o   | --output-path=output-path | [default: src/] folder path for converted file                   |
+
+**Run**
+
+```shell
+pal schema typescript
+```
+
+**Example**
+
+```prisma
+// schema.prisma
+
+datasource postgresql {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  birthDate DateTime?
+  role      UserRole
+  posts     Post[]
+}
+
+model Post {
+  id     String @id @default(cuid())
+  author User[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+```
+
+### OutPut
+
+```ts
+// schema.ts
+export interface User {
+  id: string;
+  email: string;
+  birthDate: Date | null;
+  role: UserRole;
+  posts: Post[];
+}
+
+export interface Post {
+  id: string;
+  author: User[];
+}
+
+enum UserRole {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}
+```
+
+</MdxCard>
+
+
+<MdxCard>
+
 
 ## ConvertSchemaToObject
 
@@ -591,6 +681,7 @@ const schemaObject = new ConvertSchemaToObject(path).run();
 
 </MdxCard>
 <MdxCard>
+
 
 ## Schema Type
 
@@ -631,3 +722,4 @@ export type SchemaObject = { models: Model[]; enums: Enums[] };
 ```
 
 </MdxCard>
+

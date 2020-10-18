@@ -8,17 +8,13 @@ import MdxCard from 'src/components/MdxCard';
 
 ## Nexus prisma plugin generate types
 
-This is Cli tool to Create CRUD system for [Nexus Prisma plugin](https://www.nexusjs.org/#/plugins/prisma) from your `schema.prisma` file
+This is Cli tool to Create CRUD system for [Nexus Prisma plugin](https://nexusjs.org/docs/pluginss/prisma/overview) from your `schema.prisma` file
 
 **_CONTENT_**
 
 - [Install](#install)
-- [Command options for `cnt`](#command-options-for-cnt)
-- [Nexus Example](#nexus-example)
-  - [OutPut](#output)
-- [Create TypeScript types](#create-typescript-types)
-  - [Example](#example)
-  - [OutPut](#output-1)
+- [Configurations](#configurations)
+- [OutPut](#output)
 
 </MdxCard>
 
@@ -26,35 +22,31 @@ This is Cli tool to Create CRUD system for [Nexus Prisma plugin](https://www.nex
 
 ## Install
 
-[![Version](https://img.shields.io/npm/v/create-nexus-type.svg)](https://npmjs.org/package/create-nexus-type)
-[![Downloads/total](https://img.shields.io/npm/dt/create-nexus-type.svg)](https://npmjs.org/package/create-nexus-type)
-[![License](https://img.shields.io/npm/l/create-nexus-type.svg)](https://paljs.com/)
-
 ```shell
-yarn add -D create-nexus-type
-or
-npm i create-nexus-type --save-dev
+yarn global add @paljs/cli
+//or
+npm install -g @paljs/cli
 ```
 
-### Command options for `cnt`
+### Configurations
 
+Create new file with `pal.js` name and add this content:
+
+```js
+module.exports = {
+  backend: {
+    generator: 'nexus-plugin-prisma',
+  },
+};
 ```
-  --schema To add schema file path if you not run command in root of project
-  --outDir Created files output dir default src/types
-  -mq      add this option to create Queries and Mutations for models
-  -m       add this option to create Mutations
-  -q       add this option to create Queries
-  -f       add this option to add {filtering: true} option to Queries
-  -o       add this option to add {ordering: true} option to Queries
-  --js     create javascript version
-  --mjs    create es modules version
-```
+
+[Here is all options in `pal.js` file ](/cli/generator#config-file)
 
 </MdxCard>
 
 <MdxCard>
 
-### Nexus Example
+### Example
 
 ```prisma
 // schema.prisma
@@ -81,16 +73,17 @@ model Post {
 }
 ```
 
-run
+For generate all types you need to run `pal g` command for all options [click here](/cli/generator)
 
 ```shell
-npx cnt --mq -f -o
+pal g
 ```
 
 ### OutPut
 
 ```ts
-import { objectType, extendType } from '@nexus/schema';
+// User model
+import { objectType, arg, extendType } from '@nexus/schema';
 
 export const User = objectType({
   name: 'User',
@@ -106,7 +99,29 @@ export const userQuery = extendType({
   type: 'Query',
   definition(t) {
     t.crud.user();
+    t.field('findFirstUser', {
+      type: 'User',
+      args: {
+        where: 'UserWhereInput',
+        orderBy: arg({ type: 'UserOrderByInput', list: true }),
+        cursor: 'UserWhereUniqueInput',
+        skip: 'Int',
+        take: 'Int',
+      },
+      async resolve(_root, args, ctx) {
+        return ctx.prisma.user.findFirst(args);
+      },
+    });
     t.crud.users({ filtering: true, ordering: true });
+    t.field('usersCount', {
+      type: 'Int',
+      args: {
+        where: 'UserWhereInput',
+      },
+      async resolve(_root, args, ctx) {
+        return ctx.prisma.user.count(args);
+      },
+    });
   },
 });
 
@@ -117,89 +132,10 @@ export const userMutation = extendType({
     t.crud.updateOneUser();
     t.crud.upsertOneUser();
     t.crud.deleteOneUser();
-
     t.crud.updateManyUser();
     t.crud.deleteManyUser();
   },
 });
-```
-
-</MdxCard>
-
-<MdxCard>
-
-## Create TypeScript types
-
-And have another option to create TypeScript types to use for your work
-
-### Command options for `create-types`
-
-```
-  usage: create-types (Create TypeScript types from Prisma schema)
-  --schema To add schema file path if you not run command in root of project
-  --outDir Created files output dir default src/generated
-```
-
-### Example
-
-```prisma
-// schema.prisma
-
-datasource postgresql {
-  url      = env("DATABASE_URL")
-  provider = "postgresql"
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  birthDate DateTime?
-  role      UserRole
-  posts     Post[]
-}
-
-model Post {
-  id     String @id @default(cuid())
-  author User[]
-}
-
-enum UserRole {
-  USER
-  ADMIN
-}
-```
-
-run
-
-```shell
-npx create-types
-```
-
-### OutPut
-
-```ts
-// types.ts
-export interface User {
-  id: string;
-  email: string;
-  birthDate: Date | null;
-  role: UserRole;
-  posts: Post[];
-}
-
-export interface Post {
-  id: string;
-  author: User[];
-}
-
-enum UserRole {
-  USER = 'USER',
-  ADMIN = 'ADMIN',
-}
 ```
 
 </MdxCard>

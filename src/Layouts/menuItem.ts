@@ -21,7 +21,7 @@ const items: MenuItemType[] = [
         link: { to: '/cli/schema' },
       },
       {
-        title: 'cnt',
+        title: 'nexus plugin prisma',
         link: { to: '/cli/cnt' },
       },
     ],

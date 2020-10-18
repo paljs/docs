@@ -25,6 +25,7 @@ import MdxCard from 'src/components/MdxCard';
 - **_typeDefs.ts_** contain graphql types for this model
 - **_resolvers.ts_** contain 3 queries and 6 mutations:
   - `findOne`
+  - `findFirst`
   - `findMany`
   - `findCount`
   - `aggregate`
@@ -84,7 +85,7 @@ pal g
 ```
 
 - build prisma client
-- auto generate your crud system for more information about `pal g` command configurations  [click here](/cli/generator) 
+- auto generate your crud system for more information about `pal g` command configurations [click here](/cli/generator)
 
 #### Output For User Model
 
