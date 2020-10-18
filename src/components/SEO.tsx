@@ -9,6 +9,7 @@ const detailsQuery = graphql`
         title
         description
         author
+        siteUrl
       }
     }
   }
@@ -20,6 +21,7 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
       query={detailsQuery}
       render={(data) => {
         const metaDescription = description || data.site.siteMetadata.description;
+        const URL = data.site.siteMetadata.siteUrl;
         return (
           <Helmet
             htmlAttributes={{
@@ -37,12 +39,24 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
                 content: title,
               },
               {
+                property: 'og:site_name',
+                content: 'Pal.Js',
+              },
+              {
                 property: 'og:description',
                 content: metaDescription,
               },
               {
                 property: 'og:type',
                 content: 'website',
+              },
+              {
+                name: 'og:image',
+                content: `${URL}/header.png`,
+              },
+              {
+                name: 'og:url',
+                content: URL,
               },
               {
                 name: 'twitter:card',
@@ -66,7 +80,7 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
               },
               {
                 name: 'twitter:image',
-                content: 'https://paljs.com/header.png',
+                content: `${URL}/header.png`,
               },
             ]
               .concat(
@@ -78,7 +92,24 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
                   : [],
               )
               .concat(meta ?? [])}
-          />
+          >
+            <script type="application/ld+json">
+              {`
+        {
+          "@context": "https://schema.org",
+          "@type": "OpenSource",
+          "url": "https://paljs.com",
+          "name": "Pal.Js",
+          "author": "Ahmed Elywa"
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+201275545187",
+            "contactType": "Customer Support"
+          }
+        }
+      `}
+            </script>
+          </Helmet>
         );
       }}
     />
