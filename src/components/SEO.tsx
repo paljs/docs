@@ -100,7 +100,7 @@ const SEO: React.FC<SEOProps> = ({ description, lang, meta, keywords, title }) =
           "@type": "OpenSource",
           "url": "https://paljs.com",
           "name": "Pal.Js",
-          "author": "Ahmed Elywa"
+          "author": "Ahmed Elywa",
           "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+201275545187",
