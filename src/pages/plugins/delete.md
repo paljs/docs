@@ -164,6 +164,7 @@ const resolvers = {
 ## `PrismaDelete` class
 
 - `prisma` prisma client class
+- `options` `{ dmmf?: DMMF.Document }` you can send custom options for now we just have one option to pass custom `dmmf` object if you have a custom generated client path.
 
 `prismaDelete.onDelete` accept object
 

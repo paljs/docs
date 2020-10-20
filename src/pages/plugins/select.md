@@ -68,20 +68,26 @@ const resolvers = {
 
 ### constructor
 
-Take three args:
+Take two args:
 
 - `info` : `GraphQLResolveInfo`
-- `defaultFields` : you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query
+- `options`: accept object
 
 ```ts
+// example
 const defaultFields = {
   User: { id: true, name: true },
   Type: { id: true, descriptionRaw: true },
   Post: { id: true, body: true },
 };
-```
 
-- `mergeObject` : any object to merge with client requested fields good to always returned fixed data like `id`.
+options?: {
+  // you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query
+  defaultFields?: { [key: string]: { [key: string]: boolean } };
+  // dmmf object import from generated prisma client default "import {dmmf} from '@prisma/client'"
+  dmmf?: DMMF.Document;
+}
+```
 
 ### Methods
 
@@ -137,7 +143,7 @@ Here's how the nested type, filter, and to merge custom object would look like.
 const resolver = {
   Mutation: {
     login: (_parent, { email, password }, { prisma }: Context, info) => {
-      const select = new PrismaSelect(info).valueOf('user', 'User', {}, { select: { id: true } });
+      const select = new PrismaSelect(info).valueOf('user', 'User', { select: { id: true } });
       return {
         token: 'token',
         user: prisma.user.findOne({
@@ -199,15 +205,17 @@ type User {
 
 By adding `firstName` and `lastName` to PrismaSelect in the user field of Query, and `fullName` in User, the client can request fullName directly.
 
-```ts{8,19}
-import { PrismaSelect } from '@prisma-tools/select';
+```ts{10,21}
+import { PrismaSelect } from '@paljs/plugins';
+
+const defaultFields = {
+  User: { firstName: true, lastName: true },
+};
 
 const resolvers = {
   Query: {
     user(_parent, { where }, { prisma }, info) {
-      // you can send { User: { firstName: true, lastName: true } } in second arg
-      // or you can send { select: { firstName: true, lastName: true } } in third arg
-      const select = new PrismaSelect(info, {}, { select: { firstName: true, lastName: true } }).value;
+      const select = new PrismaSelect(info, { defaultFields }).value;
       return prisma.user.findOne({
         where,
         // this object must not have `fullName` because will throw error it's not in our db

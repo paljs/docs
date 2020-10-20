@@ -404,15 +404,22 @@ paljs({
   includeAdmin: true,
   // by default adminSchemaPath is `prisma/` you can change it
   adminSchemaPath: 'prisma/',
+  // this options will pass to PrismaSelect class as second arg.
+  prismaSelectOptions?: {
   // take default fields object accepted by PrismaSelect class { [key: string]: { [key: string]: boolean } }
-  prismaSelectDefaultFields: { User: { id: true } },
+    defaultFields?: { [key: string]: { [key: string]: boolean } };
+    // send custom dmmf if you have custom generated client path
+    dmmf?: DMMF.Document;
+  };
+  // send custom dmmf if you have custom generated client path for generate input types
+  dmmf?: DMMF.Document;
 });
 ```
 
 ### Install
 
 [![Version](https://img.shields.io/npm/v/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
-[![Downloads/week](https://img.shields.io/npm/dw/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
+[![Downloads/week](https://img.shields.io/npm/dt/@paljs/nexus.svg)](https://npmjs.org/package/@paljs/nexus)
 [![License](https://img.shields.io/npm/l/@paljs/nexus.svg)](https://paljs.com/)
 
 ```shell
