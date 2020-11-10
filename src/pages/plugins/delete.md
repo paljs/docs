@@ -171,6 +171,7 @@ const resolvers = {
 - `model` model name that was defined in `schema.prisma`
 - `where` query object to retrive the result `{ id: 1}`
 - `deleteParent` A flag to determine whether the model should be deleted and returned when its defined as `true`
+- `returnFields` you can select what you need to return from parent record `{id: true, name: true}`
 
 ```ts
 await prismaDelete.onDelete({ model: 'User', where, deleteParent: true });
