@@ -63,6 +63,10 @@ const items: MenuItemType[] = [
         title: 'On Delete',
         link: { to: '/plugins/delete' },
       },
+      {
+        title: 'GraphQL SDL Inputs',
+        link: { to: '/plugins/sdl-inputs' },
+      },
     ],
   },
   {

@@ -11,6 +11,7 @@ import MdxCard from 'src/components/MdxCard';
 - [Features](#features)
 - [Example Usage](#example-usage)
 - [Add select function](#add-select-function)
+- [GraphQL SDL inputs](/plugins/sdl-inputs)
 
 </MdxCard>
 
@@ -142,43 +143,50 @@ export default gql`
 <Tab title="resolvers.ts">
 
 ```ts
-import { Context } from '../../context';
+import { Resolvers } from '../../resolversTypes';
 
-export default {
+const resolvers: Resolvers = {
   Query: {
-    findOneUser: (_parent, args, { prisma }: Context) => {
+    findOneUser: (_parent, args, { prisma }) => {
       return prisma.user.findOne(args);
     },
-    findManyUser: (_parent, args, { prisma }: Context) => {
+    findFirstUser: (_parent, args, { prisma }) => {
+      return prisma.user.findFirst(args);
+    },
+    findManyUser: (_parent, args, { prisma }) => {
       return prisma.user.findMany(args);
     },
-    findManyUserCount: (_parent, args, { prisma }: Context) => {
+    findManyUserCount: (_parent, args, { prisma }) => {
       return prisma.user.count(args);
+    },
+    aggregateUser: (_parent, args, { prisma }) => {
+      return prisma.user.aggregate(args);
     },
   },
   Mutation: {
-    createOneUser: (_parent, args, { prisma }: Context) => {
+    createOneUser: (_parent, args, { prisma }) => {
       return prisma.user.create(args);
     },
-    updateOneUser: (_parent, args, { prisma }: Context) => {
+    updateOneUser: (_parent, args, { prisma }) => {
       return prisma.user.update(args);
     },
-    deleteOneUser: async (_parent, args, { prisma }: Context) => {
+    deleteOneUser: async (_parent, args, { prisma }) => {
       await prisma.onDelete({ model: 'User', where: args.where });
       return prisma.user.delete(args);
     },
-    upsertOneUser: async (_parent, args, { prisma }: Context) => {
+    upsertOneUser: async (_parent, args, { prisma }) => {
       return prisma.user.upsert(args);
     },
-    deleteManyUser: async (_parent, args, { prisma }: Context) => {
+    deleteManyUser: async (_parent, args, { prisma }) => {
       await prisma.onDelete({ model: 'User', where: args.where });
       return prisma.user.deleteMany(args);
     },
-    updateManyUser: (_parent, args, { prisma }: Context) => {
+    updateManyUser: (_parent, args, { prisma }) => {
       return prisma.user.updateMany(args);
     },
   },
 };
+export default resolvers;
 ```
 
 </Tab>

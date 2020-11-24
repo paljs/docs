@@ -402,8 +402,8 @@ This plugin adds three parts
 paljs({
   // include Prisma Admin schema query and mutations
   includeAdmin: true,
-  // by default adminSchemaPath is `prisma/` you can change it
-  adminSchemaPath: 'prisma/',
+  // by default adminSchemaPath is `adminSettings.json` you can change it
+  adminSchemaPath: 'adminSettings.json',
   // this options will pass to PrismaSelect class as second arg.
   prismaSelectOptions?: {
   // take default fields object accepted by PrismaSelect class { [key: string]: { [key: string]: boolean } }
@@ -413,6 +413,14 @@ paljs({
   };
   // send custom dmmf if you have custom generated client path for generate input types
   dmmf?: DMMF.Document;
+  // by default when we create update inputs you will set data like {username: {set: "Ahmed"}} by making this option true you will be able to use it like {username: "Ahmed"} without set.
+  // but you will also lose these options for number fields
+  // increment: x: Adds x to the current value
+  // decrement: x: Subtracts x from the current value
+  // multiply: x: Multiplies the current value by x
+  // divide: x: Divides the current value by x
+  // set: x: Sets the value to x (equivalent to data: { age: 18 })
+  doNotUseFieldUpdateOperationsInput?: boolean;
 });
 ```
 

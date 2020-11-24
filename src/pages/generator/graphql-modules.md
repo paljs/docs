@@ -11,9 +11,10 @@ import MdxCard from 'src/components/MdxCard';
 - [Features](#features)
 - [Example Usage](#example-usage)
   - [Merge all modules](#merge-all-modules)
-  - [cretae `common.module.ts`](##create-commonmodulets)
+  - [cretae `inputs.module.ts`](##create-inputsmodulets)
   - [create `Prisma.provider.ts`](#create-prismaproviderts)
   - [Add select object to args](#add-select-object-to-args)
+  - [GraphQL SDL inputs](/plugins/sdl-inputs)
 
 </MdxCard>
 
@@ -139,40 +140,45 @@ export default gql`
 <Tab title="resolvers.ts">
 
 ```ts
-import { ModuleContext } from '@graphql-modules/core';
-import { PrismaProvider } from '../common/Prisma.provider';
+import { PrismaProvider } from '../Prisma.provider';
 
 export default {
   Query: {
-    findOneUser: (_parent, args, { injector }: ModuleContext) => {
+    findOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.findOne(args);
     },
-    findManyUser: (_parent, args, { injector }: ModuleContext) => {
+    findFirstUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findFirst(args);
+    },
+    findManyUser: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.findMany(args);
     },
-    findManyUserCount: (_parent, args, { injector }: ModuleContext) => {
+    findManyUserCount: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.count(args);
+    },
+    aggregateUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.aggregate(args);
     },
   },
   Mutation: {
-    createOneUser: (_parent, args, { injector }: ModuleContext) => {
+    createOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.create(args);
     },
-    updateOneUser: (_parent, args, { injector }: ModuleContext) => {
+    updateOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.update(args);
     },
-    deleteOneUser: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete('User', args.where, false);
+    deleteOneUser: async (_parent, args, { injector }: GraphQLModules.Context) => {
+      await injector.get(PrismaProvider).onDelete({ model: 'User', where: args.where });
       return injector.get(PrismaProvider).user.delete(args);
     },
-    upsertOneUser: async (_parent, args, { injector }: ModuleContext) => {
+    upsertOneUser: async (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.upsert(args);
     },
-    deleteManyUser: async (_parent, args, { injector }: ModuleContext) => {
-      await injector.get(PrismaProvider).onDelete('User', args.where, false);
+    deleteManyUser: async (_parent, args, { injector }: GraphQLModules.Context) => {
+      await injector.get(PrismaProvider).onDelete({ model: 'User', where: args.where });
       return injector.get(PrismaProvider).user.deleteMany(args);
     },
-    updateManyUser: (_parent, args, { injector }: ModuleContext) => {
+    updateManyUser: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.updateMany(args);
     },
   },
@@ -183,21 +189,14 @@ export default {
 <Tab title="User.module.ts">
 
 ```ts
-import { GraphQLModule } from '@graphql-modules/core';
+import { createModule } from 'graphql-modules';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
-import { addSelect } from '../common/addSelect';
-import { CommonModule } from '../common/common.module';
 
-export const UserModule = new GraphQLModule({
-  name: 'User',
+export const UserModule = createModule({
+  id: 'User',
   typeDefs,
   resolvers,
-  imports: [CommonModule],
-  resolversComposition: {
-    Query: [addSelect],
-    Mutation: [addSelect],
-  },
 });
 ```
 
@@ -206,33 +205,37 @@ export const UserModule = new GraphQLModule({
 
 ### Merge all modules
 
-`app/app.module.ts`
+`src/app/application.ts`
 
 ```ts
-import { GraphQLModule } from '@graphql-modules/core';
+import { createApplication } from 'graphql-modules';
+import { InputsModule } from './inputs/inputs.module';
 import { CommonModule } from './common/common.module';
-import { PostModule } from './Post/post.module';
-import { UserModule } from './User/user.module';
+import { addSelect } from './addSelect';
+import { PrismaProvider } from './Prisma.provider';
 
-export const AppModule = new GraphQLModule({
-  imports: [CommonModule, UserModule, PostModule],
+export const application = createApplication({
+  modules: [InputsModule, CommonModule],
+  providers: [PrismaProvider],
+  middlewares: {
+    '*': { '*': [addSelect] },
+  },
 });
 ```
 
-### create `common.module.ts`
+### create `inputs.module.ts`
 
-Create the common module to share will all modules to use Prisma and inputs
+Create the inputs module to share will all modules to use Prisma and inputs
 
-`src/app/common/common.module.ts`
+`src/app/inputs/inputs.module.ts`
 
-```ts{3,6}
-import { GraphQLModule } from '@graphql-modules/core';
-import { PrismaProvider } from './Prisma.provider';
+```ts{2,6}
+import { createModule } from 'graphql-modules';
 import { sdlInputs } from '@paljs/plugins';
 
-export const CommonModule = new GraphQLModule({
+export const InputsModule = createModule({
+  id: 'Inputs',
   typeDefs: sdlInputs(),
-  providers: [PrismaProvider],
 });
 ```
 
@@ -240,29 +243,25 @@ export const CommonModule = new GraphQLModule({
 
 create Prisma instance and add onDelete plugin to it
 
-`src/app/common/Prisma.provider.ts`
+`src/app/Prisma.provider.ts`
 
 ```ts
 import { PrismaDelete, onDeleteArgs } from '@paljs/plugins';
-import { OnRequest, OnResponse } from '@graphql-modules/core';
+import { Injectable, OnDestroy } from 'graphql-modules';
 import { PrismaClient } from '@prisma/client';
-import { Injectable } from '@graphql-modules/di';
-import { schema } from '../../schema';
 
 @Injectable()
-export class PrismaProvider extends PrismaClient implements OnRequest, OnResponse {
+export class PrismaProvider extends PrismaClient implements OnDestroy {
   constructor() {
     super();
-  }
-  onRequest() {
     this.$connect();
   }
-  onResponse() {
+  onDestroy(): void {
     this.$disconnect();
   }
 
   async onDelete(args: onDeleteArgs) {
-    const prismaDelete = new PrismaDelete(this, schema);
+    const prismaDelete = new PrismaDelete(this);
     await prismaDelete.onDelete(args);
   }
 }
@@ -274,20 +273,20 @@ It's a small tool to convert `info: GraphQLResolveInfo` to select object accepte
 
 This middleware is take `info` and convert it to Prisma select object and add to resolve args
 
-`src/app/common/addSelect.ts`
+`src/app/addSelect.ts`
 
 ```ts
 import { PrismaSelect } from '@paljs/plugins';
 
-export const addSelect = (next) => async (root, args, context, info) => {
-  const result = new PrismaSelect(info).value;
-  if (Object.keys(result.select).length > 0) {
-    args = {
-      ...args,
+export const addSelect = (context, next) => {
+  const result = new PrismaSelect(context.info).value;
+  if (!result.select || Object.keys(result.select).length > 0) {
+    context.args = {
+      ...context.args,
       ...result,
     };
   }
-  return next(root, args, context, info);
+  return next();
 };
 ```
 
