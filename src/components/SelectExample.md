@@ -6,7 +6,7 @@ import MdxCard from './MdxCard';
 
 ```graphql
 query {
-  findOneUser(where: { id: 1 }) {
+  findUniqueUser(where: { id: 1 }) {
     id
     email
     name

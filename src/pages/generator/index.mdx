@@ -33,7 +33,7 @@ Here is what we use in our [CLI](/cli/generator) to generate fiels
 
 Generate CRUD system for your Prisma GraphQL server
 
-`findOne` | `findFirst` | `findMany` | `findCount` | `aggregate` | `createOne` | `updateOne` | `upsertOne` | `deleteOne` | `updateMany` | `deleteMany`
+`findUnique` | `findFirst` | `findMany` | `findCount` | `aggregate` | `createOne` | `updateOne` | `upsertOne` | `deleteOne` | `updateMany` | `deleteMany`
 
 <br />
 
@@ -157,8 +157,8 @@ fragment User on User {
   }
 }
 
-query findOneUser($where: UserWhereUniqueInput!) {
-  findOneUser(where: $where) {
+query findUniqueUser($where: UserWhereUniqueInput!) {
+  findUniqueUser(where: $where) {
     ...User
   }
 }
@@ -253,7 +253,7 @@ interface Options {
 }
 
 type QueriesAndMutations =
-  | 'findOne'
+  | 'findUnique'
   | 'findMany'
   | 'findCount'
   | 'aggregate'

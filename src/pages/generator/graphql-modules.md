@@ -28,7 +28,7 @@ Auto generate CRUD system from your `schema.prisma` file.
 - **_X.module.ts_** contain `GraphQLModule` for this model.
 - **_typeDefs.ts_** contain graphql types for this model.
 - **_resolvers.ts_** contain 3 queries and 6 mutations:
-  - `findOne`
+  - `findUnique`
   - `findFirst`
   - `findMany`
   - `findCount`
@@ -109,7 +109,7 @@ export default gql`
   }
 
   type Query {
-    findOneUser(where: UserWhereUniqueInput!): User
+    findUniqueUser(where: UserWhereUniqueInput!): User
     findManyUser(
       where: UserWhereInput
       orderBy: UserOrderByInput
@@ -144,8 +144,8 @@ import { PrismaProvider } from '../Prisma.provider';
 
 export default {
   Query: {
-    findOneUser: (_parent, args, { injector }: GraphQLModules.Context) => {
-      return injector.get(PrismaProvider).user.findOne(args);
+    findUniqueUser: (_parent, args, { injector }: GraphQLModules.Context) => {
+      return injector.get(PrismaProvider).user.findUnique(args);
     },
     findFirstUser: (_parent, args, { injector }: GraphQLModules.Context) => {
       return injector.get(PrismaProvider).user.findFirst(args);

@@ -93,7 +93,7 @@ For more information about `pal g` command configurations [click here](/cli/gene
   - `Post/mutations/updateMany.ts`
   - `Post/queries/findCount.ts`
   - `Post/queries/findMany.ts`
-  - `Post/queries/findOne.ts`
+  - `Post/queries/findUnique.ts`
   - `Post/queries/aggregate.ts`
   - `Post/type.ts`
 
@@ -132,12 +132,12 @@ export const User = objectType({
 `queries`
 
 <Tabs>
-<Tab title="findOne.ts">
+<Tab title="findUnique.ts">
 
 ```ts
 import { queryField, arg } from '@nexus/schema';
 
-export const UserFindOneQuery = queryField('findOneUser', {
+export const UserFindUniqueQuery = queryField('findUniqueUser', {
   type: 'User',
   nullable: true,
   args: {
@@ -147,7 +147,7 @@ export const UserFindOneQuery = queryField('findOneUser', {
     }),
   },
   resolve(_parent, { where }, { prisma, select }) {
-    return prisma.user.findOne({
+    return prisma.user.findUnique({
       where,
       ...select,
     });
@@ -470,7 +470,7 @@ export const schema = makeSchema({
 extendType({
   type: 'Query',
   definition(t) {
-    t.field('findOneUser', {
+    t.field('findUniqueUser', {
       type: 'User',
       nullable: true,
       args: {
@@ -480,7 +480,7 @@ extendType({
         }),
       },
       resolve(_, { where }, { prisma, select }) {
-        return prisma.user.findOne({
+        return prisma.user.findUnique({
           where,
           ...select,
         });

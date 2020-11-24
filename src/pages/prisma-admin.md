@@ -255,7 +255,7 @@ React component to list, create, update and delete your model data.
 > NOTE: You must add this component under [@paljs/ui Layout Component](/ui/components/layout) like we use in our examples.
 > Because we use themes and components from @paljs/ui package to render our settings component
 
-> NOTE: This component use 3 queries (findOne, findMany, findManyCount) and 3 mutations (createOne, updateOne, deleteOne) be sure to add them in your backend by using our CLI [`pal generate`](/cli/generator)
+> NOTE: This component use 3 queries (findUnique, findMany, findManyCount) and 3 mutations (createOne, updateOne, deleteOne) be sure to add them in your backend by using our CLI [`pal generate`](/cli/generator)
 
 <img src="/table.png" alt="table" />
 

@@ -50,7 +50,7 @@ const resolvers = {
   Query: {
     user(_parent, { where }, { prisma }, info) {
       const select = new PrismaSelect(info).value;
-      return prisma.user.findOne({
+      return prisma.user.findUnique({
         where,
         ...select,
       });
@@ -146,7 +146,7 @@ const resolver = {
       const select = new PrismaSelect(info).valueOf('user', 'User', { select: { id: true } });
       return {
         token: 'token',
-        user: prisma.user.findOne({
+        user: prisma.user.findUnique({
           where: { email },
           ...select,
         }),
@@ -169,7 +169,7 @@ const resolvers = {
   Query: {
     user(_parent, { where }, { prisma, select }, info) {
       const mergedObject = PrismaSelect.mergeDeep(select, { select: { id: true } });
-      return prisma.user.findOne({
+      return prisma.user.findUnique({
         where,
         ...mergedObject,
       });
@@ -216,7 +216,7 @@ const resolvers = {
   Query: {
     user(_parent, { where }, { prisma }, info) {
       const select = new PrismaSelect(info, { defaultFields }).value;
-      return prisma.user.findOne({
+      return prisma.user.findUnique({
         where,
         // this object must not have `fullName` because will throw error it's not in our db
         // So we have built in filter to remove any field not in our schema model
@@ -307,18 +307,18 @@ The normal `GraphQL Resolvers` to get one User will be like this:
 ```js
 const resolvers = {
   Query: {
-    findOneUser: (_parent, args, { prisma }) => {
-      return prisma.user.findOne(args);
+    findUniqueUser: (_parent, args, { prisma }) => {
+      return prisma.user.findUnique(args);
     },
   },
   User: {
     posts: (parent, args, { prisma }) => {
-      return prisma.user.findOne({ where: { id: parent.id } }).posts(args);
+      return prisma.user.findUnique({ where: { id: parent.id } }).posts(args);
     },
   },
   Post: {
     comments: (parent, args, { prisma }) => {
-      return prisma.post.findOne({ where: { id: parent.id } }).comments(args);
+      return prisma.post.findUnique({ where: { id: parent.id } }).comments(args);
     },
   },
 };
@@ -328,7 +328,7 @@ Let me do GraphQL query to get one user with his posts and comments inside posts
 
 ```graphql
 {
-  findOneUser(where: { id: 1 }) {
+  findUniqueUser(where: { id: 1 }) {
     id
     posts {
       id
@@ -357,9 +357,9 @@ import { PrismaSelect } from '@paljs/plugins';
 
 {
   Query: {
-    findOneUser: (_parent, args, { prisma }, info) => {
+    findUniqueUser: (_parent, args, { prisma }, info) => {
       const select = new PrismaSelect(info).value;
-      return prisma.user.findOne({
+      return prisma.user.findUnique({
         ...args,
         ...select,
       });
@@ -372,7 +372,7 @@ When we do the same query:
 
 ```graphql
 {
-  findOneUser(where: { id: 1 }) {
+  findUniqueUser(where: { id: 1 }) {
     id
     posts {
       id
