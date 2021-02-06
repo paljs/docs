@@ -315,8 +315,10 @@ Prisma Table has many props to can custom it like you want.
 
 To customize [`tableColumns`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Table/Columns.tsx) and [`formInputs`](https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Form/Inputs.tsx) components you need to look to default components and have good react skills.
 
-```ts{3,5,7,10,13,16,18,20,22-26,28,30,33,36,39}
+```ts{3,5,7,9,12,15,18,20,22,24-28,30,32,35,38,41}
 interface ModelTableProps {
+  // customize your table permissions and overwrite the settings it's allow you to give users different permissions
+  actions?: ('create' | 'update' | 'delete')[];
   // model name like in `schema.prisma` file
   model: string;
   // push function to move between tables and change link
