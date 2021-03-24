@@ -9,6 +9,11 @@ module.exports = {
     author: 'Ahmed Elywa',
     siteUrl: `https://paljs.com`,
   },
+  flags: {
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+    PRESERVE_WEBPACK_CACHE: true,
+    FAST_DEV: true,
+  },
   plugins: [
     {
       resolve: `gatsby-plugin-layout`,
@@ -24,7 +29,6 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        decks: [],
         defaultLayouts: {
           default: path.resolve('./src/components/MdxLayout.tsx'),
         },
