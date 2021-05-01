@@ -21,6 +21,7 @@
     "gatsby-plugin-styled-components": "4.4.0",
     "gatsby-plugin-typescript": "3.4.0",
     "gatsby-remark-prismjs": "5.1.0",
+    "http-server": "^0.12.3",
     "prismjs": "1.23.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -37,7 +38,7 @@
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
-    "start": "gatsby serve --port ${PORT-8000}",
+    "start": "http-server ./public --port ${PORT-8000}",
     "format": "prettier --write \"src/**/*\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
