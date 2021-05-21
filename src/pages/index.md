@@ -53,7 +53,7 @@ npx @paljs/cli create
 
 ## Create a new
 
-```shell
+```shell{1,11,17,22,25-29,32,35}
 > npx @paljs/cli create
 
 
@@ -88,7 +88,6 @@ npx @paljs/cli create
 ✔ please select your package manager · yarn
 ❯ yarn
   npm
-
 ✔ Skip package installation · no
 ❯ yes
   no
