@@ -31,11 +31,11 @@ npm i @paljs/admin
   - [Add Settings React Component](#add-settings-react-component)
     - [Models card](#models-card)
     - [Fields Accordions](#fields-accordions)
+    - [Props](#props)
 - [Prisma table](#prisma-table)
   - [Using with NextJS](#using-with-nextjs)
   - [Using with GatsbyJS](#using-with-gatsbyjs)
-  - [Props](#props)
-  - [Add pages to menu](#add-pages-to-menu)
+  - [Props](#props-1)
   - [How to add and update list values?](#how-to-add-and-update-list-values)
 
 </MdxCard>
@@ -197,16 +197,14 @@ export default gql`
 
 You have `Settings` react component to change your tables settings.
 
-> NOTE: You must add this component under [@paljs/ui Layout Component](/ui/components/layout) like we use in our examples.
-> Because we use themes and components from @paljs/ui package to render our settings component
-
 > NOTE: You must add this component under `ApolloProvider` component because we use `@apollo/client` to query and update settings.
 
 Now you can add our component to any page like this.
 
 ```jsx{2,6}
 import React from 'react';
-import { Settings } from '@paljs/admin';
+import { Settings } from '@paljs/admin/Settings';
+import '@paljs/admin/style.css';
 
 export default function SettingsPage() {
   // Settings component not have any props
@@ -216,7 +214,7 @@ export default function SettingsPage() {
 
 When you open this in your browser will get it like this image.
 
-<img src="/settings.png" alt="settings" />
+<img className="img-border" src="/settings.png" alt="settings" />
 
 #### Models card
 
@@ -241,8 +239,36 @@ Every field has Accordion with this content:
   - **update** show this field in update record form.
   - **filter** add filter option to this field in table if read checked.
   - **sort** add sortBy option to this field in table if read checked.
-  - **editor** convert update and create input type to use quill editor or any custom editor you will add.
+  - **editor** use the `Editor` component in the update and create. You must send this component into `formInputs` prop because we do not have any default one for this option.
   - **upload** use the `Upload` component in the update and create. You must send this component into `formInputs` prop because we do not have any default one for this option.
+  
+#### Props
+
+`language` object with the language keys
+
+```js
+const defaultLanguage = {
+  dir: 'ltr',
+  header: 'Update models Tables',
+  dbName: 'Database Name',
+  displayName: 'Display Name',
+  modelName: 'Model Name',
+  idField: 'Id Field',
+  displayFields: 'Display Fields',
+  fieldName: 'Field Name',
+  actions: 'Actions',
+  create: 'create',
+  update: 'update',
+  delete: 'delete',
+  read: 'read',
+  filter: 'filter',
+  sort: 'sort',
+  editor: 'editor',
+  upload: 'upload',
+  tableView: 'Table View',
+  inputType: 'Input Type',
+};
+```
 
 </MdxCard>
 
@@ -252,12 +278,9 @@ Every field has Accordion with this content:
 
 React component to list, create, update and delete your model data.
 
-> NOTE: You must add this component under [@paljs/ui Layout Component](/ui/components/layout) like we use in our examples.
-> Because we use themes and components from @paljs/ui package to render our settings component
-
 > NOTE: This component use 3 queries (findUnique, findMany, findManyCount) and 3 mutations (createOne, updateOne, deleteOne) be sure to add them in your backend by using our CLI [`pal generate`](/cli/generator)
 
-<img src="/table.png" alt="table" />
+<img className="img-border" src="/table.png" alt="table" />
 
 ### Using with NextJS
 
@@ -266,8 +289,7 @@ Adding style to `_app.tsx` file.
 `src/pages/_app.tsx`
 
 ```js
-import 'react-quill/dist/quill.snow.css';
-import 'react-datepicker/dist/react-datepicker.css';
+import '@paljs/admin/style.css';
 ```
 
 `src/Components/PrismaTable.tsx`
@@ -275,7 +297,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 ```tsx{3,7}
 import React from 'react';
 import { useRouter } from 'next/router';
-import { PrismaTable } from '@paljs/admin';
+import { PrismaTable } from '@paljs/admin/PrismaTable';
 
 const Table: React.FC<{ model: string }> = ({ model }) => {
   const router = useRouter();
@@ -291,14 +313,12 @@ export default Table;
 
 ```tsx{2,14}
 import React from 'react';
-import { PrismaTable } from '@paljs/admin';
+import { PrismaTable } from '@paljs/admin/PrismaTable';
 import { navigate } from 'gatsby';
 import { useLocation } from '@reach/router';
 import * as queryString from 'query-string';
 
-// Adding this to import to style editor and date picker in forms
-import 'react-quill/dist/quill.snow.css';
-import 'react-datepicker/dist/react-datepicker.css';
+import '@paljs/admin/style.css';
 
 const Table: React.FC<{ model: string }> = ({ model }) => {
   const location = useLocation();
@@ -357,6 +377,14 @@ interface ModelTableProps {
   // it's object with form input components for every field type we use this package https://react-hook-form.com/
   // default here: https://github.com/paljs/prisma-tools/blob/master/admin/src/PrismaTable/Form/Inputs.tsx
   formInputs?: Partial<FormInputs>;
+  // you can customize the actions buttons
+  actionButtons?: {
+    Add?: React.FC;
+    Update?: React.FC<{ id: any }>;
+    Delete?: React.FC<{ id: any }>;
+  };
+  lang: typeof Language;
+  dir: 'rtl' | 'ltr';
 }
 
 type FormInputs = Record<'Default' | 'Editor' | 'Enum' | 'Object' | 'Date' | 'Boolean', React.FC<InputProps>>;
@@ -366,11 +394,11 @@ interface InputProps {
   value: any;
   data: any;
   error: any;
-  // import { FormContextValues } from 'react-hook-form';
-  register: FormContextValues['register'];
-  setValue: FormContextValues['setValue'];
-  getValues: FormContextValues['getValues'];
-  watch: FormContextValues['watch'];
+  // import { UseFormReturn } from 'react-hook-form';
+  register: UseFormReturn['register'];
+  setValue: UseFormReturn['setValue'];
+  getValues: UseFormReturn['getValues'];
+  watch: UseFormReturn['watch'];
   disabled: boolean;
 }
 
@@ -381,6 +409,52 @@ type Columns = Record<
 >;
 
 export type GetColumnsPartial = (field: SchemaField, model?: SchemaModel) => Partial<Columns>;
+```
+
+The default language object
+
+```js
+const Language = {
+  yes: 'yes',
+  no: 'no',
+  all: 'All',
+  startDate: 'Start Date',
+  endDate: 'End Date',
+  min: 'Min',
+  max: 'Max',
+  range: 'Range',
+  equals: 'Equals',
+  deleteConfirm: 'Are you sure you want to delete this record ?',
+  select: 'Select',
+  actions: 'Actions',
+  relation: 'Relation',
+  viewAll: 'View All',
+  viewRelated: 'View Related',
+  connected: 'Connected',
+  connect: 'Connect',
+  disConnect: 'DisConnect',
+  editRow: 'Edit Row',
+  viewRow: 'View Row',
+  deleteRow: 'Delete Row',
+  showing: 'Showing',
+  of: 'of',
+  results: 'results',
+  goToFirstPage: 'Go to first page',
+  goToLastPage: 'Go to last page',
+  goPageNumber: 'Go Page Number',
+  setPageSize: 'Set page size ',
+  filter: 'Filter',
+  save: 'Save',
+  cancel: 'Cancel',
+  close: 'close',
+  create: 'create',
+  update: 'update',
+  view: 'view',
+  isRequired: ' is required',
+  show: 'SHOW',
+  clear: 'clear',
+  clearAll: 'Clear All',
+};
 ```
 
 ## Generate pages
@@ -399,34 +473,6 @@ frontend: {
 
 - Add true To generate pages with default settings
 - you can customize it by add object with this proparty [AdminPagesOptions](/generator#adminpagesoptions)
-
-### Add pages to menu
-
-In my examples I use `Menu` component from `@paljs/ui` package.
-
-Menu component accept array of items we will add our pages to this array.
-
-In our examples you will find this file in this path `src/Layouts/Admin/menuItem.ts`
-
-```ts
-import { MenuItemType } from '@paljs/ui';
-
-const items: MenuItemType[] = [
-  { title: 'Home Page', icon: { name: 'home' }, link: { href: '/admin' } },
-  {
-    title: 'Models',
-    icon: { name: 'layers-outline' },
-    children: [
-      { title: 'Users', link: { href: '/admin/models/User' } },
-      {
-        title: 'Posts',
-        link: { href: '/admin/models/Post' },
-      },
-    ],
-  },
-];
-export default items;
-```
 
 ### How to add and update list values?
 

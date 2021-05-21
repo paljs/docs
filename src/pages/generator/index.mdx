@@ -103,7 +103,7 @@ interface AdminPagesOptions {
 
 ```
 import React from 'react';
-import PrismaTable from 'Components/PrismaTable';
+import PrismaTable from 'components/PrismaTable';
 
 const #{id}: React.FC = () => {
   return <PrismaTable model="#{id}" />;
@@ -226,6 +226,8 @@ mutation updateManyUser($where: UserWhereInput, $data: UserUpdateManyMutationInp
 
 ```ts{3,5,7,9,11,13,15,17,19,21-23,25}
 interface Options {
+  // prisma props name inside the graphql resolvers context. "default: prisma" maybe can be db or you can use with multi schema project to be prisma1, prisma2
+  prismaName: string;
   // add array of model to just generate them by `pal g`
   models?: string[];
   // models output path

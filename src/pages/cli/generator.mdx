@@ -5,7 +5,6 @@ import MdxCard from 'src/components/MdxCard';
 
 <MdxCard>
 
-
 ## pal generate
 
 **Alias: ** `pal g`
@@ -17,6 +16,7 @@ Can generate queries, mutations, admin pages, apollo client queries and mutation
 - [EXAMPLES](#examples)
 - [output](#output)
 - [Config file (pal.js)](#config-file)
+  - [examples](#config-examples)
   - [type definitions for config file](#type-definitions-for-config-file)
 
 ```shell
@@ -34,10 +34,13 @@ Can generate queries, mutations, admin pages, apollo client queries and mutation
 
 **OPTIONS**
 
-| char | flag            | description                                         |
-| ---- | --------------- | --------------------------------------------------- |
-| -c   | --config=config | [default: pal] You can pass custom config file name |
-| -h   | --help          | show CLI help                                       |
+| char | flag            | description                                                                                                       |
+| ---- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| -c   | --config=config | [default: pal] You can pass custom config file name                                                               |
+| -m   | --multi         | Add this flag to work with config file as multi schema                                                            |
+| -s   | --schema        | when you working with multi schema and need to select just one add the schema prop name                           |
+| -a   | --autoComplete  | Add this flag with `${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/` path to generate CLI auto complete for oh-my-zsh |
+| -h   | --help          | show CLI help                                                                                                     |
 
 <br />
 
@@ -93,6 +96,57 @@ To customize the generator with your needs and project dirs you need to create c
 
 Add new file to your project root path with name `pal.js` or `pal.json`
 
+### Config examples
+
+**Singel schema**
+
+```js
+module.exports = {
+  backend: {
+    generator: 'nexus',
+    onDelete: true,
+    output: 'src/server/graphql',
+  },
+  frontend: {
+    admin: true,
+  },
+};
+```
+
+**Multi schemas**
+
+```js
+module.exports = {
+  // schema name to add for --schema flag is "schema1"
+  schema1: {
+  // path to schema
+    schema: './prisma1/schema.prisma',
+    backend: {
+  // prisma client name inside the graphql resolver context to generate for CRUD
+      prismaName: 'prisma1',
+      generator: 'nexus',
+      onDelete: true,
+      output: 'src/server/graphql',
+    },
+    frontend: {
+      admin: true,
+    },
+  },
+  schema2: {
+    schema: './prisma2/schema.prisma',
+    backend: {
+      prismaName: 'prisma2',
+      generator: 'nexus',
+      onDelete: true,
+      output: 'src/server/graphql',
+    },
+    frontend: {
+      admin: true,
+    },
+  },
+};
+```
+
 You can change file name and pass it to your command
 
 ```shell
@@ -103,6 +157,8 @@ You can change file name and pass it to your command
 
 ```ts{3,5,7,10, 12,14,17}
 interface Config {
+  // prisma schema path
+  schema?: string;
   // add backend generator
   backend?: {
     // generator type it's require
@@ -125,4 +181,3 @@ type GeneratorsType = 'nexus' | 'sdl' | 'graphql-modules' | 'nexus-plugin-prisma
 - [Options](/generator#options-type-definition)
 
 </MdxCard>
-

@@ -40,6 +40,10 @@ takes one arg: you can pass object of options.
 interface OptionsType {
   // if you use a custom generated files path you need to import dmmf from this path and send to our function through this option.
   dmmf?: DMMF.Document;
+  // take an array of field names to exclude from any input type
+  excludeFields?: string[];
+  // take a function and the input object as arg and return array of fields you want to generate
+  filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
   // by default when we create update inputs you will set data like {username: {set: "Ahmed"}} by making this option true you will be able to use it like {username: "Ahmed"} without set.
   // but you will also lose these options for number fields
   // increment: x: Adds x to the current value
@@ -55,7 +59,14 @@ import { dmmf } from './prismaCustomPath';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import { sdlInputs } from '@paljs/plugins';
 
-export default mergeTypeDefs([sdlInputs({ dmmf }), ...customTypes]);
+export default mergeTypeDefs([
+  sdlInputs({
+    dmmf,
+    excludeFields: ['password'],
+    filterInputs: (input) => input.fields.filter((field) => field.name !== 'passowrd'),
+  }),
+  ...customTypes,
+]);
 ```
 
 </MdxCard>

@@ -79,14 +79,19 @@ const defaultFields = {
   User: { id: true, name: true },
   Type: { id: true, descriptionRaw: true },
   Post: { id: true, body: true },
+  // as function you can check if client select some fields to add another to default fields
+  Account: (select) => select.name ? {firstname: true, lastname: true} : {}
 };
 
-options?: {
+// the type of options
+type options = {
   // you can pass object with your models and what the fields you need to include for every model even if user not requested in GraphQL query
-  defaultFields?: { [key: string]: { [key: string]: boolean } };
-  // dmmf object import from generated prisma client default "import {dmmf} from '@prisma/client'"
-  dmmf?: DMMF.Document;
-}
+  defaultFields?: {
+    [key: string]: { [key: string]: boolean } | ((select: any) => { [key: string]: boolean });
+  };
+  // array of dmmf object import from generated prisma client default "import {dmmf} from '@prisma/client'"
+  dmmf?: DMMF.Document[];
+};
 ```
 
 ### Methods

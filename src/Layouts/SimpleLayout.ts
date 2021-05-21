@@ -29,6 +29,12 @@ ${({ theme }) => css`
     width: 300px;
     box-shadow: none;
   }
+  
+  .img-border {
+    border: #8f9bb3 solid 1px;
+    box-shadow: ${theme.headerShadow};
+    border-radius: 1rem;
+  }
 
   button {
     color: #fff;

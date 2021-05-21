@@ -68,7 +68,7 @@ For more information about `pal g` command configurations [click here](/cli/gene
 
 ## Output
 
-**Every model will have folder contain 11 files:**
+**Each model will have folder contain 11 files:**
 
 > NOTE: You can customize all this files and add your logic code inside it just `*/type.ts` will rewrite on it.
 
@@ -102,17 +102,21 @@ To understand this code structure please look to [Nexus Docs](https://www.nexusj
 `type.ts`
 
 ```ts
-import { objectType } from '@nexus/schema';
+import { objectType } from 'nexus'
 
 export const User = objectType({
+  nonNullDefaults: {
+    output: true,
+    input: false,
+  },
   name: 'User',
   definition(t) {
-    t.int('id', { nullable: false });
-    t.string('email', { nullable: false });
-    t.string('name', { nullable: true });
-    t.field('posts', {
-      nullable: false,
-      list: [true],
+    t.int('id')
+    t.field('createdAt', { type: 'DateTime' })
+    t.string('email')
+    t.nullable.string('name')
+    t.field('role', { type: 'Role' })
+    t.list.field('posts', {
       type: 'Post',
       args: {
         where: 'PostWhereInput',
@@ -120,13 +124,14 @@ export const User = objectType({
         cursor: 'PostWhereUniqueInput',
         take: 'Int',
         skip: 'Int',
+        distinct: 'PostScalarFieldEnum',
       },
-      resolve(parent: any) {
-        return parent['posts'];
+      resolve(root: any) {
+        return root.posts
       },
-    });
+    })
   },
-});
+})
 ```
 
 `queries`
@@ -135,40 +140,35 @@ export const User = objectType({
 <Tab title="findUnique.ts">
 
 ```ts
-import { queryField, arg } from '@nexus/schema';
+import { queryField, nonNull } from 'nexus'
 
 export const UserFindUniqueQuery = queryField('findUniqueUser', {
   type: 'User',
-  nullable: true,
   args: {
-    where: arg({
-      type: 'UserWhereUniqueInput',
-      nullable: false,
-    }),
+    where: nonNull('UserWhereUniqueInput'),
   },
   resolve(_parent, { where }, { prisma, select }) {
     return prisma.user.findUnique({
       where,
       ...select,
-    });
+    })
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="findMany.ts">
 
 ```ts
-import { queryField } from '@nexus/schema';
+import { queryField, nonNull, list } from 'nexus'
 
 export const UserFindManyQuery = queryField('findManyUser', {
-  type: 'User',
-  nullable: true,
-  list: true,
+  type: nonNull(list(nonNull('User'))),
   args: {
     where: 'UserWhereInput',
-    orderBy: 'UserOrderByInput',
+    orderBy: list('UserOrderByInput'),
     cursor: 'UserWhereUniqueInput',
+    distinct: 'UserScalarFieldEnum',
     skip: 'Int',
     take: 'Int',
   },
@@ -176,43 +176,53 @@ export const UserFindManyQuery = queryField('findManyUser', {
     return prisma.user.findMany({
       ...args,
       ...select,
-    });
+    })
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="findCount.ts">
 
 ```ts
-import { queryField } from '@nexus/schema';
+import { queryField, nonNull, list } from 'nexus'
 
-export const UserFindManyCountQuery = queryField('findManyUserCount', {
-  type: 'Int',
+export const UserFindCountQuery = queryField('findManyUserCount', {
+  type: nonNull('Int'),
   args: {
     where: 'UserWhereInput',
-    orderBy: 'UserOrderByInput',
+    orderBy: list('UserOrderByInput'),
     cursor: 'UserWhereUniqueInput',
+    distinct: 'UserScalarFieldEnum',
     skip: 'Int',
     take: 'Int',
   },
   resolve(_parent, args, { prisma }) {
-    return prisma.user.count(args);
+    return prisma.user.count(args as any)
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="aggregate.ts">
 
 ```ts
+import { queryField, list } from 'nexus'
+
 export const UserAggregateQuery = queryField('aggregateUser', {
   type: 'AggregateUser',
-  nullable: true,
-  resolve(_parent, _args, { prisma, select }) {
-    return prisma.user.aggregate(select) as any;
+  args: {
+    where: 'UserWhereInput',
+    orderBy: list('UserOrderByInput'),
+    cursor: 'UserWhereUniqueInput',
+    distinct: 'UserScalarFieldEnum',
+    skip: 'Int',
+    take: 'Int',
   },
-});
+  resolve(_parent, args, { prisma, select }) {
+    return prisma.user.aggregate({ ...args, ...select }) as any
+  },
+})
 ```
 
 </Tab>
@@ -224,155 +234,121 @@ export const UserAggregateQuery = queryField('aggregateUser', {
 <Tab title="createOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema';
+import { mutationField, nonNull } from 'nexus'
 
 export const UserCreateOneMutation = mutationField('createOneUser', {
-  type: 'User',
-  nullable: false,
+  type: nonNull('User'),
   args: {
-    data: arg({
-      type: 'UserCreateInput',
-      nullable: false,
-    }),
+    data: nonNull('UserCreateInput'),
   },
   resolve(_parent, { data }, { prisma, select }) {
     return prisma.user.create({
       data,
       ...select,
-    });
+    })
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="deleteOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema';
+import { mutationField, nonNull } from 'nexus'
 
 export const UserDeleteOneMutation = mutationField('deleteOneUser', {
   type: 'User',
-  nullable: true,
   args: {
-    where: arg({
-      type: 'UserWhereUniqueInput',
-      nullable: false,
-    }),
+    where: nonNull('UserWhereUniqueInput'),
   },
   resolve: async (_parent, { where }, { prisma, select }) => {
-    await prisma.onDelete({ model: 'User', where });
+    await prisma.onDelete({ model: 'User', where })
     return prisma.user.delete({
       where,
       ...select,
-    });
+    })
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="updateOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema';
+import { mutationField, nonNull } from 'nexus'
 
 export const UserUpdateOneMutation = mutationField('updateOneUser', {
-  type: 'User',
-  nullable: false,
+  type: nonNull('User'),
   args: {
-    where: arg({
-      type: 'UserWhereUniqueInput',
-      nullable: false,
-    }),
-    data: arg({
-      type: 'UserUpdateInput',
-      nullable: false,
-    }),
+    where: nonNull('UserWhereUniqueInput'),
+    data: nonNull('UserUpdateInput'),
   },
   resolve(_parent, { data, where }, { prisma, select }) {
     return prisma.user.update({
       where,
       data,
       ...select,
-    });
+    })
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="upsertOne.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema';
+import { mutationField, nonNull } from 'nexus'
 
 export const UserUpsertOneMutation = mutationField('upsertOneUser', {
-  type: 'User',
-  nullable: false,
+  type: nonNull('User'),
   args: {
-    where: arg({
-      type: 'UserWhereUniqueInput',
-      nullable: false,
-    }),
-    create: arg({
-      type: 'UserCreateInput',
-      nullable: false,
-    }),
-    update: arg({
-      type: 'UserUpdateInput',
-      nullable: false,
-    }),
+    where: nonNull('UserWhereUniqueInput'),
+    create: nonNull('UserCreateInput'),
+    update: nonNull('UserUpdateInput'),
   },
   resolve(_parent, args, { prisma, select }) {
     return prisma.user.upsert({
       ...args,
       ...select,
-    });
+    })
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="deleteMany.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema';
+import { mutationField, nonNull } from 'nexus'
 
 export const UserDeleteManyMutation = mutationField('deleteManyUser', {
-  type: 'BatchPayload',
+  type: nonNull('BatchPayload'),
   args: {
-    where: arg({
-      type: 'UserWhereInput',
-      nullable: true,
-    }),
+    where: 'UserWhereInput',
   },
   resolve: async (_parent, { where }, { prisma }) => {
-    await prisma.onDelete({ model: 'User', where });
-    return prisma.user.deleteMany({ where });
+    await prisma.onDelete({ model: 'User', where })
+    return prisma.user.deleteMany({ where } as any)
   },
-});
+})
 ```
 
 </Tab>
 <Tab title="updateMany.ts">
 
 ```ts
-import { mutationField, arg } from '@nexus/schema';
+import { mutationField, nonNull } from 'nexus'
 
 export const UserUpdateManyMutation = mutationField('updateManyUser', {
-  type: 'BatchPayload',
+  type: nonNull('BatchPayload'),
   args: {
-    where: arg({
-      type: 'UserWhereInput',
-      nullable: true,
-    }),
-    data: arg({
-      type: 'UserUpdateManyMutationInput',
-      nullable: false,
-    }),
+    where: 'UserWhereInput',
+    data: nonNull('UserUpdateManyMutationInput'),
   },
   resolve(_parent, args, { prisma }) {
-    return prisma.user.updateMany(args);
+    return prisma.user.updateMany(args as any)
   },
-});
+})
 ```
 
 </Tab>
@@ -400,19 +376,30 @@ This plugin adds three parts
 
 ```ts
 paljs({
-  // include Prisma Admin schema query and mutations
-  includeAdmin: true,
-  // by default adminSchemaPath is `adminSettings.json` you can change it
-  adminSchemaPath: 'adminSettings.json',
-  // this options will pass to PrismaSelect class as second arg.
+  excludeFields: ['password'],
+  filterInputs: (input) => input.fields.filter((field) => field.name !== 'passowrd'),
+});
+
+type options = {
+  // this options will pass to PrismaSelect class as second arg. https://paljs.com/plugins/select#constructor
   prismaSelectOptions?: {
-  // take default fields object accepted by PrismaSelect class { [key: string]: { [key: string]: boolean } }
-    defaultFields?: { [key: string]: { [key: string]: boolean } };
-    // send custom dmmf if you have custom generated client path
-    dmmf?: DMMF.Document;
+    defaultFields?: {
+      [key: string]:
+              | { [key: string]: boolean }
+              | ((select: any) => { [key: string]: boolean });
+    };
+    dmmf?: DMMF.Document[];
   };
+  // by default adminSchemaPath is `adminSettings.json` you can change it
+  adminSchemaPath?: string;
+  // include Prisma Admin schema query and mutations
+  includeAdmin?: boolean;
   // send custom dmmf if you have custom generated client path for generate input types
-  dmmf?: DMMF.Document;
+  dmmf?: DMMF.Document[];
+  // take an array of field names to exclude from any input type
+  excludeFields?: string[];
+  // take a function and the input object as arg and return array of fields you want to generate
+  filterInputs?: (input: DMMF.InputType) => DMMF.SchemaArg[];
   // by default when we create update inputs you will set data like {username: {set: "Ahmed"}} by making this option true you will be able to use it like {username: "Ahmed"} without set.
   // but you will also lose these options for number fields
   // increment: x: Adds x to the current value
@@ -421,7 +408,7 @@ paljs({
   // divide: x: Divides the current value by x
   // set: x: Sets the value to x (equivalent to data: { age: 18 })
   doNotUseFieldUpdateOperationsInput?: boolean;
-});
+}
 ```
 
 ### Install
@@ -467,27 +454,20 @@ export const schema = makeSchema({
 #### Use
 
 ```ts
-extendType({
-  type: 'Query',
-  definition(t) {
-    t.field('findUniqueUser', {
-      type: 'User',
-      nullable: true,
-      args: {
-        where: arg({
-          type: 'UserWhereUniqueInput',
-          nullable: false,
-        }),
-      },
-      resolve(_, { where }, { prisma, select }) {
-        return prisma.user.findUnique({
-          where,
-          ...select,
-        });
-      },
-    });
+import { queryField, nonNull } from 'nexus'
+
+export const UserFindUniqueQuery = queryField('findUniqueUser', {
+  type: 'User',
+  args: {
+    where: nonNull('UserWhereUniqueInput'),
   },
-});
+  resolve(_parent, { where }, { prisma, select }) {
+    return prisma.user.findUnique({
+      where,
+      ...select,
+    })
+  },
+})
 ```
 
 </MdxCard>
