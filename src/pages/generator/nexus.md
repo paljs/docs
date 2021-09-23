@@ -38,6 +38,8 @@ model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
+  /// @Pal.omit This would hide the field from Pal.js output
+  password  String?
   name      String?
   role      Role     @default(USER)
   posts     Post[]
@@ -410,6 +412,8 @@ type options = {
   doNotUseFieldUpdateOperationsInput?: boolean;
 }
 ```
+  
+Note that you may also exclude generation of fields by adding `/// @Pal.omit` to field's documentation
 
 ### Install
 
