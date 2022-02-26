@@ -22,7 +22,7 @@
     "gatsby-plugin-typescript": "3.5.0",
     "gatsby-remark-prismjs": "5.2.1",
     "http-server": "^0.12.3",
-    "prismjs": "1.23.0",
+    "prismjs": "1.27.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-helmet": "6.1.0",
