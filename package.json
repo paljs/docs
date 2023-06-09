@@ -8,7 +8,7 @@
     "@mdx-js/react": "1.6.22",
     "@paljs/icons": "1.0.5",
     "@paljs/ui": "1.1.1",
-    "gatsby": "3.5.1",
+    "gatsby": "4.25.7",
     "gatsby-image": "3.5.0",
     "gatsby-plugin-google-analytics": "^3.5.0",
     "gatsby-plugin-layout": "2.5.0",
